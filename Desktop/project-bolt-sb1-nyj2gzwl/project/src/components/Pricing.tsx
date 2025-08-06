@@ -34,7 +34,6 @@ const Pricing = () => {
                 'Advanced customization',
                 'Multiple file formats',
                 'Priority support',
-                'Custom branding',
                 'Analytics tracking'
             ],
             popular: true,

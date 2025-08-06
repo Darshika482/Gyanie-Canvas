@@ -34,14 +34,16 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
             <EditableText
               value={resume.content.personalInfo.fullName || data.personalInfo.fullName}
               onChange={(value) => updatePersonalInfo('fullName', value)}
-              className="text-4xl font-bold text-blue-900 mb-2"
+              className="text-4xl font-bold mb-2"
+              style={{ color: resume.content.design.primaryColor }}
               placeholder="ISABELLE TODD"
               tag="h1"
             />
             <EditableText
               value={resume.content.personalInfo.summary || "The role you are applying for?"}
               onChange={(value) => updatePersonalInfo('summary', value)}
-              className="text-lg text-orange-500 mb-4"
+              className="text-lg mb-4"
+              style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
               placeholder="The role you are applying for?"
               tag="p"
             />
@@ -49,7 +51,7 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
             {/* Contact Info */}
             <div className="flex items-center space-x-6 text-sm text-gray-700">
               <div className="flex items-center space-x-1">
-                <span className="text-orange-500">📞</span>
+                <span style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}>📞</span>
                 <EditableText
                   value={resume.content.personalInfo.phone || data.personalInfo.phone}
                   onChange={(value) => updatePersonalInfo('phone', value)}
@@ -58,7 +60,7 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                 />
               </div>
               <div className="flex items-center space-x-1">
-                <span className="text-orange-500">✉️</span>
+                <span style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}>✉️</span>
                 <EditableText
                   value={resume.content.personalInfo.email || data.personalInfo.email}
                   onChange={(value) => updatePersonalInfo('email', value)}
@@ -67,7 +69,7 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                 />
               </div>
               <div className="flex items-center space-x-1">
-                <span className="text-orange-500">🔗</span>
+                <span style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}>🔗</span>
                 <EditableText
                   value={resume.content.personalInfo.website || data.personalInfo.website}
                   onChange={(value) => updatePersonalInfo('website', value)}
@@ -76,7 +78,7 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                 />
               </div>
               <div className="flex items-center space-x-1">
-                <span className="text-orange-500">📍</span>
+                <span style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}>📍</span>
                 <EditableText
                   value={resume.content.personalInfo.location || data.personalInfo.location}
                   onChange={(value) => updatePersonalInfo('location', value)}
@@ -102,32 +104,38 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
           <EditableText
             value="EXPERIENCE"
             onChange={(value) => { }}
-            className="text-2xl font-bold text-blue-900 mb-6"
+            className="text-2xl font-bold mb-6"
+            style={{ color: resume.content.design.primaryColor }}
             placeholder="EXPERIENCE"
             tag="h2"
           />
 
           <div className="relative">
             {/* Timeline Line */}
-            <div className="absolute left-24 top-0 bottom-0 w-0.5 bg-blue-900"></div>
+            <div
+              className="absolute left-24 top-0 bottom-0 w-0.5"
+              style={{ backgroundColor: resume.content.design.primaryColor }}
+            ></div>
 
             <div className="space-y-8">
               {data.experience.map((job, index) => (
                 <div key={index} className="flex">
                   {/* Date Column */}
                   <div className="w-24 flex-shrink-0 text-right pr-4">
-                    <div className="text-blue-900 font-bold text-sm">
+                    <div className="font-bold text-sm" style={{ color: resume.content.design.primaryColor }}>
                       <EditableText
                         value={job.startDate}
                         onChange={(value) => { }}
-                        className="block text-blue-900 font-bold"
+                        className="block font-bold"
+                        style={{ color: resume.content.design.primaryColor }}
                         placeholder="2017"
                       />
                       <span className="text-xs text-gray-500">-</span>
                       <EditableText
                         value={job.current ? 'Present' : job.endDate}
                         onChange={(value) => { }}
-                        className="block text-blue-900 font-bold"
+                        className="block font-bold"
+                        style={{ color: resume.content.design.primaryColor }}
                         placeholder="Present"
                       />
                     </div>
@@ -135,7 +143,10 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
 
                   {/* Timeline Dot */}
                   <div className="flex flex-col items-center mr-6">
-                    <div className="w-3 h-3 bg-blue-900 rounded-full border-2 border-white shadow-sm"></div>
+                    <div
+                      className="w-3 h-3 rounded-full border-2 border-white shadow-sm"
+                      style={{ backgroundColor: resume.content.design.primaryColor }}
+                    ></div>
                   </div>
 
                   {/* Content */}
@@ -144,14 +155,16 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                       <EditableText
                         value={job.position}
                         onChange={(value) => { }}
-                        className="text-xl font-bold text-blue-900 mb-1"
+                        className="text-xl font-bold mb-1"
+                        style={{ color: resume.content.design.primaryColor }}
                         placeholder="UI/UX Designer"
                         tag="h3"
                       />
                       <EditableText
                         value={job.company}
                         onChange={(value) => { }}
-                        className="text-lg text-orange-500 font-semibold mb-2"
+                        className="text-lg font-semibold mb-2"
+                        style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                         placeholder="Gutmann"
                         tag="p"
                       />
@@ -165,11 +178,18 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                     </div>
 
                     {/* Company Description */}
-                    <div className="bg-red-50 border-l-4 border-red-400 p-3 mb-4">
+                    <div
+                      className="border-l-4 p-3 mb-4"
+                      style={{
+                        backgroundColor: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}10`,
+                        borderColor: resume.content.design.secondaryColor || resume.content.design.primaryColor
+                      }}
+                    >
                       <EditableText
                         value="Gutmann is a company specialized in mentoring anddevelopment services in web environments, integrating Microsoft technology productsandsolutions."
                         onChange={(value) => { }}
-                        className="text-sm text-red-800"
+                        className="text-sm"
+                        style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                         placeholder="Company description"
                         multiline
                         tag="p"
@@ -194,7 +214,8 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
           <EditableText
             value="SKILLS"
             onChange={(value) => { }}
-            className="text-2xl font-bold text-blue-900 mb-6"
+            className="text-2xl font-bold mb-6"
+            style={{ color: resume.content.design.primaryColor }}
             placeholder="SKILLS"
             tag="h2"
           />
@@ -205,7 +226,8 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                 <EditableText
                   value={skillGroup.category}
                   onChange={(value) => { }}
-                  className="font-bold text-purple-600 mb-3"
+                  className="font-bold mb-3"
+                  style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                   placeholder="Softwares"
                   tag="h3"
                 />
@@ -231,25 +253,32 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
           <EditableText
             value="TRAINING / COURSES"
             onChange={(value) => { }}
-            className="text-2xl font-bold text-blue-900 mb-6"
+            className="text-2xl font-bold mb-6"
+            style={{ color: resume.content.design.primaryColor }}
             placeholder="TRAINING / COURSES"
             tag="h2"
           />
 
           <div className="grid grid-cols-2 gap-4">
             {data.training.map((course, index) => (
-              <div key={index} className="bg-blue-50 p-4 rounded-lg">
+              <div
+                key={index}
+                className="p-4 rounded-lg"
+                style={{ backgroundColor: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}10` }}
+              >
                 <EditableText
                   value={course.course}
                   onChange={(value) => { }}
-                  className="font-bold text-blue-600 mb-1"
+                  className="font-bold mb-1"
+                  style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                   placeholder="UI/UX Designing"
                   tag="h3"
                 />
                 <EditableText
                   value={course.provider}
                   onChange={(value) => { }}
-                  className="text-sm text-blue-700 mb-1"
+                  className="text-sm mb-1"
+                  style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                   placeholder="INSTA DIGITAL"
                   tag="p"
                 />
@@ -270,14 +299,19 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
           <EditableText
             value="LANGUAGES"
             onChange={(value) => { }}
-            className="text-2xl font-bold text-blue-900 mb-6"
+            className="text-2xl font-bold mb-6"
+            style={{ color: resume.content.design.primaryColor }}
             placeholder="LANGUAGES"
             tag="h2"
           />
 
           <div className="grid grid-cols-2 gap-4">
             {data.languages.map((lang, index) => (
-              <div key={index} className="bg-orange-50 p-4 rounded-lg">
+              <div
+                key={index}
+                className="p-4 rounded-lg"
+                style={{ backgroundColor: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}10` }}
+              >
                 <div className="flex justify-between items-center mb-2">
                   <EditableText
                     value={lang.language}
@@ -288,7 +322,8 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                   <EditableText
                     value={lang.proficiency}
                     onChange={(value) => { }}
-                    className="text-sm text-orange-600 font-medium"
+                    className="text-sm font-medium"
+                    style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                     placeholder="Proficient"
                   />
                 </div>
@@ -296,8 +331,10 @@ const TimelineTemplate: React.FC<TimelineTemplateProps> = ({ resume }) => {
                   {Array.from({ length: 5 }, (_, i) => (
                     <div
                       key={i}
-                      className={`w-4 h-4 rounded-full ${i < lang.level ? 'bg-blue-500' : 'bg-gray-200'
-                        }`}
+                      className={`w-4 h-4 rounded-full ${i < lang.level ? '' : 'bg-gray-200'}`}
+                      style={{
+                        backgroundColor: i < lang.level ? resume.content.design.secondaryColor || resume.content.design.primaryColor : undefined
+                      }}
                     ></div>
                   ))}
                 </div>

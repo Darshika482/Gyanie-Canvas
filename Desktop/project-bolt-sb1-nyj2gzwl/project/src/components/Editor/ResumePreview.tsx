@@ -3,6 +3,7 @@ import { Resume } from '../../types';
 
 // Import all template components
 import DoubleColumnTemplate from '../Templates/DoubleColumnTemplate';
+import EnhancedResumeTemplate from '../Templates/EnhancedResumeTemplate';
 import IvyLeagueTemplate from '../Templates/IvyLeagueTemplate';
 import ElegantTemplate from '../Templates/ElegantTemplate';
 import ModernTemplate from '../Templates/ModernTemplate';
@@ -13,39 +14,59 @@ import MultiColumnTemplate from '../Templates/MultiColumnTemplate';
 
 interface ResumePreviewProps {
   resume: Resume;
+  onBlockSelect?: (type: string, id: string, index?: number, event?: React.MouseEvent) => void;
+  selectedBlock?: {
+    type: string;
+    id: string;
+    index?: number;
+  } | null;
 }
 
-const ResumePreview: React.FC<ResumePreviewProps> = ({ resume }) => {
+const ResumePreview: React.FC<ResumePreviewProps> = ({ resume, onBlockSelect, selectedBlock }) => {
   // Get the template ID from resume design settings
   const templateId = resume.content.design.templateId || resume.templateId;
 
+
+
   // Render the appropriate template based on templateId
   const renderTemplate = () => {
+    const templateProps = {
+      resume,
+      onBlockSelect,
+      selectedBlock
+    };
+
     switch (templateId) {
+      case 'enhanced':
+        return <EnhancedResumeTemplate {...templateProps} />;
       case 'single-column':
-        return <SingleColumnTemplate resume={resume} />;
+        return <SingleColumnTemplate {...templateProps} />;
       case 'multi-column':
-        return <MultiColumnTemplate resume={resume} />;
+        return <MultiColumnTemplate {...templateProps} />;
       case 'double-column':
-        return <DoubleColumnTemplate resume={resume} />;
+        return <DoubleColumnTemplate {...templateProps} />;
       case 'ivy-league':
-        return <IvyLeagueTemplate resume={resume} />;
+        return <IvyLeagueTemplate {...templateProps} />;
       case 'elegant':
-        return <ElegantTemplate resume={resume} />;
+        return <ElegantTemplate {...templateProps} />;
       case 'modern':
-        return <ModernTemplate resume={resume} />;
+        return <ModernTemplate {...templateProps} />;
       case 'creative':
-        return <CreativeTemplate resume={resume} />;
+        return <CreativeTemplate {...templateProps} />;
       case 'timeline':
-        return <TimelineTemplate resume={resume} />;
+        return <TimelineTemplate {...templateProps} />;
       default:
-        // Default to the original template for backward compatibility
-        return <DoubleColumnTemplate resume={resume} />;
+        // Default to the enhanced template for better UX
+        return <EnhancedResumeTemplate {...templateProps} />;
     }
   };
 
   return (
-    <div id="resume-preview" className="resume-preview">
+    <div
+      id="resume-preview"
+      className="resume-preview"
+      key={`${resume.id}-${resume.content.design.primaryColor}-${resume.content.design.secondaryColor}-${resume.content.design.templateId}`}
+    >
       {renderTemplate()}
     </div>
   );

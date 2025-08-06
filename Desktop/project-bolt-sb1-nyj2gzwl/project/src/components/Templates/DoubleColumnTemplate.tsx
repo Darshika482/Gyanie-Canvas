@@ -8,9 +8,15 @@ import { generateId } from '../../utils/helpers';
 
 interface DoubleColumnTemplateProps {
   resume: Resume;
+  onBlockSelect?: (type: string, id: string, index?: number, event?: React.MouseEvent) => void;
+  selectedBlock?: {
+    type: string;
+    id: string;
+    index?: number;
+  } | null;
 }
 
-const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) => {
+const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume, onBlockSelect, selectedBlock }) => {
   const { updateResume } = useResumeStore();
   const data = sampleResumeData;
 
@@ -19,6 +25,16 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
   const education = resume.content.sections.find(section => section.type === 'education')?.content || [];
   const skills = resume.content.sections.find(section => section.type === 'skills')?.content || data.skills;
   const projects = resume.content.sections.find(section => section.type === 'projects')?.content || [];
+  const certifications = resume.content.sections.find(section => section.type === 'certifications')?.content || [];
+  const languages = resume.content.sections.find(section => section.type === 'languages')?.content || data.languages;
+  const awards = resume.content.sections.find(section => section.type === 'awards')?.content || [];
+  const publications = resume.content.sections.find(section => section.type === 'publications')?.content || [];
+  const volunteer = resume.content.sections.find(section => section.type === 'volunteer')?.content || [];
+  const interests = resume.content.sections.find(section => section.type === 'interests')?.content || [];
+  const references = resume.content.sections.find(section => section.type === 'references')?.content || [];
+  const courses = resume.content.sections.find(section => section.type === 'courses')?.content || [];
+  const organizations = resume.content.sections.find(section => section.type === 'organizations')?.content || [];
+  const patents = resume.content.sections.find(section => section.type === 'patents')?.content || [];
 
   const updatePersonalInfo = (field: string, value: string) => {
     updateResume(resume.id, {
@@ -175,7 +191,7 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
           <div className="mb-8">
             <h3 className="text-lg font-bold mb-4 border-b border-slate-600 pb-2">LANGUAGES</h3>
             <div className="space-y-3">
-              {data.languages.map((lang, index) => (
+              {languages.map((lang, index) => (
                 <div key={index}>
                   <div className="flex justify-between items-center mb-1">
                     <EditableText
@@ -204,12 +220,44 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
               ))}
             </div>
           </div>
+
+          {/* My Life Philosophy */}
+          <div className="mb-8">
+            <h3 className="text-lg font-bold mb-4 border-b border-slate-600 pb-2">MY LIFE PHILOSOPHY</h3>
+            <div className="space-y-3">
+              <EditableText
+                value="Your favorite quote"
+                onChange={(value) => { }}
+                className="text-sm text-slate-300 italic"
+                placeholder="Your favorite quote"
+              />
+              <EditableText
+                value="Author"
+                onChange={(value) => { }}
+                className="text-xs text-slate-400"
+                placeholder="Author"
+              />
+            </div>
+          </div>
         </div>
 
         {/* Right Content Area */}
         <div className="flex-1 p-8 min-w-0">
           {/* Header */}
-          <div className="mb-8">
+          <div
+            className={`mb-8 cursor-pointer transition-all ${selectedBlock?.type === 'header'
+              ? 'ring-4 rounded-lg p-3 border-2'
+              : 'hover:bg-gray-50 rounded-lg p-2'
+              }`}
+            style={{
+              ...(selectedBlock?.type === 'header' && {
+                ringColor: resume.content.design.primaryColor,
+                backgroundColor: `${resume.content.design.primaryColor}20`,
+                borderColor: resume.content.design.primaryColor
+              })
+            }}
+            onClick={(e) => onBlockSelect?.('header', 'personal-info', undefined, e)}
+          >
             <EditableText
               value={resume.content.personalInfo.fullName || data.personalInfo.fullName}
               onChange={(value) => updatePersonalInfo('fullName', value)}
@@ -241,7 +289,21 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
             </div>
             <div className="space-y-6">
               {experience.map((job: any, index: number) => (
-                <div key={job.id || index} className="relative group">
+                <div
+                  key={job.id || index}
+                  className={`relative group cursor-pointer transition-all ${selectedBlock?.type === 'experience' && selectedBlock?.index === index
+                    ? 'ring-4 rounded-lg p-3 border-2'
+                    : 'hover:bg-gray-50 rounded-lg p-2'
+                    }`}
+                  style={{
+                    ...(selectedBlock?.type === 'experience' && selectedBlock?.index === index && {
+                      ringColor: resume.content.design.primaryColor,
+                      backgroundColor: `${resume.content.design.primaryColor}20`,
+                      borderColor: resume.content.design.primaryColor
+                    })
+                  }}
+                  onClick={(e) => onBlockSelect?.('experience', job.id || `job-${index}`, index, e)}
+                >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
                       <EditableText
@@ -254,7 +316,8 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
                       <EditableText
                         value={job.company}
                         onChange={(value) => updateExperienceItem(index, 'company', value)}
-                        className="text-lg text-blue-600 font-medium"
+                        className="text-lg font-medium"
+                        style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                         placeholder="Company Name"
                         tag="p"
                       />
@@ -317,7 +380,14 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
               </h2>
               <div className="space-y-4">
                 {education.map((edu: any, index: number) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'education' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('education', `edu-${index}`, index, e)}
+                  >
                     <EditableText
                       value={edu.degree || "Degree"}
                       onChange={(value) => { }}
@@ -353,9 +423,16 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
               </h2>
               <div className="space-y-4">
                 {projects.map((project: any, index: number) => (
-                  <div key={index}>
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'projects' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('projects', `project-${index}`, index, e)}
+                  >
                     <EditableText
-                      value={project.title || "Project Title"}
+                      value={project.name || "Project Title"}
                       onChange={(value) => { }}
                       className="text-lg font-semibold text-gray-900"
                       placeholder="Project Title"
@@ -366,6 +443,245 @@ const DoubleColumnTemplate: React.FC<DoubleColumnTemplateProps> = ({ resume }) =
                       onChange={(value) => { }}
                       className="text-sm text-gray-700"
                       placeholder="Project Description"
+                      tag="p"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Skills */}
+          {skills.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                SKILLS
+              </h2>
+              <div className="space-y-4">
+                {skills.map((skillGroup: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'skills' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('skills', `skill-${index}`, index, e)}
+                  >
+                    <h3 className="font-semibold text-gray-900 mb-2">{skillGroup.category}</h3>
+                    <p className="text-sm text-gray-700">{skillGroup.skills.join(', ')}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Certifications */}
+          {certifications.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                CERTIFICATIONS
+              </h2>
+              <div className="space-y-4">
+                {certifications.map((cert: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'certifications' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('certifications', `cert-${index}`, index, e)}
+                  >
+                    <EditableText
+                      value={cert.name || "Certification Name"}
+                      onChange={(value) => { }}
+                      className="text-lg font-semibold text-gray-900"
+                      placeholder="Certification Name"
+                      tag="h3"
+                    />
+                    <EditableText
+                      value={cert.issuer || "Issuing Organization"}
+                      onChange={(value) => { }}
+                      className="text-blue-600 font-medium"
+                      placeholder="Issuing Organization"
+                      tag="p"
+                    />
+                    <EditableText
+                      value={cert.date || "Date"}
+                      onChange={(value) => { }}
+                      className="text-sm text-gray-600"
+                      placeholder="Date"
+                      tag="p"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Awards */}
+          {awards.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                AWARDS
+              </h2>
+              <div className="space-y-4">
+                {awards.map((award: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'awards' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('awards', `award-${index}`, index, e)}
+                  >
+                    <EditableText
+                      value={award.title || "Award Title"}
+                      onChange={(value) => { }}
+                      className="text-lg font-semibold text-gray-900"
+                      placeholder="Award Title"
+                      tag="h3"
+                    />
+                    <EditableText
+                      value={award.organization || "Organization"}
+                      onChange={(value) => { }}
+                      className="text-blue-600 font-medium"
+                      placeholder="Organization"
+                      tag="p"
+                    />
+                    <EditableText
+                      value={award.date || "Date"}
+                      onChange={(value) => { }}
+                      className="text-sm text-gray-600"
+                      placeholder="Date"
+                      tag="p"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Volunteer */}
+          {volunteer.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                VOLUNTEER
+              </h2>
+              <div className="space-y-4">
+                {volunteer.map((vol: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'volunteer' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('volunteer', `vol-${index}`, index, e)}
+                  >
+                    <EditableText
+                      value={vol.role || "Role"}
+                      onChange={(value) => { }}
+                      className="text-lg font-semibold text-gray-900"
+                      placeholder="Role"
+                      tag="h3"
+                    />
+                    <EditableText
+                      value={vol.organization || "Organization"}
+                      onChange={(value) => { }}
+                      className="text-blue-600 font-medium"
+                      placeholder="Organization"
+                      tag="p"
+                    />
+                    <EditableText
+                      value={`${vol.startDate} - ${vol.endDate}` || "Period"}
+                      onChange={(value) => { }}
+                      className="text-sm text-gray-600"
+                      placeholder="Period"
+                      tag="p"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Courses */}
+          {courses.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                COURSES
+              </h2>
+              <div className="space-y-4">
+                {courses.map((course: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'courses' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('courses', `course-${index}`, index, e)}
+                  >
+                    <EditableText
+                      value={course.course || "Course Name"}
+                      onChange={(value) => { }}
+                      className="text-lg font-semibold text-gray-900"
+                      placeholder="Course Name"
+                      tag="h3"
+                    />
+                    <EditableText
+                      value={course.provider || "Provider"}
+                      onChange={(value) => { }}
+                      className="text-blue-600 font-medium"
+                      placeholder="Provider"
+                      tag="p"
+                    />
+                    <EditableText
+                      value={course.period || "Period"}
+                      onChange={(value) => { }}
+                      className="text-sm text-gray-600"
+                      placeholder="Period"
+                      tag="p"
+                    />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Organizations */}
+          {organizations.length > 0 && (
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 border-b-2 border-gray-200 pb-2">
+                ORGANIZATIONS
+              </h2>
+              <div className="space-y-4">
+                {organizations.map((org: any, index: number) => (
+                  <div
+                    key={index}
+                    className={`cursor-pointer transition-all ${selectedBlock?.type === 'organizations' && selectedBlock?.index === index
+                      ? 'ring-4 ring-teal-500 bg-teal-100 rounded-lg p-3 border-2 border-teal-300'
+                      : 'hover:bg-gray-50 rounded-lg p-2'
+                      }`}
+                    onClick={(e) => onBlockSelect?.('organizations', `org-${index}`, index, e)}
+                  >
+                    <EditableText
+                      value={org.name || "Organization Name"}
+                      onChange={(value) => { }}
+                      className="text-lg font-semibold text-gray-900"
+                      placeholder="Organization Name"
+                      tag="h3"
+                    />
+                    <EditableText
+                      value={org.role || "Role"}
+                      onChange={(value) => { }}
+                      className="text-blue-600 font-medium"
+                      placeholder="Role"
+                      tag="p"
+                    />
+                    <EditableText
+                      value={`${org.startDate} - ${org.endDate}` || "Period"}
+                      onChange={(value) => { }}
+                      className="text-sm text-gray-600"
+                      placeholder="Period"
                       tag="p"
                     />
                   </div>

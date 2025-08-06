@@ -13,6 +13,12 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
   const { updateResume } = useResumeStore();
   const data = sampleResumeData;
 
+  // Debug: Log that CreativeTemplate is being rendered
+  console.log('CreativeTemplate - Rendered with colors:', {
+    primaryColor: resume.content.design.primaryColor,
+    secondaryColor: resume.content.design.secondaryColor
+  });
+
   const updatePersonalInfo = (field: string, value: string) => {
     updateResume(resume.id, {
       content: {
@@ -26,10 +32,18 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto">
+    <div
+      className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto"
+      key={`${resume.id}-${resume.content.design.primaryColor}-${resume.content.design.secondaryColor}`}
+    >
       <div>
         {/* Creative Header with Geometric Shapes */}
-        <div className="relative bg-gradient-to-br from-green-400 via-teal-500 to-blue-600 p-8 overflow-hidden">
+        <div
+          className="relative p-8 overflow-hidden"
+          style={{
+            background: `linear-gradient(135deg, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+          }}
+        >
           {/* Geometric Background Elements */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white bg-opacity-10 rounded-full -translate-y-32 translate-x-32"></div>
           <div className="absolute bottom-0 left-0 w-48 h-48 bg-white bg-opacity-10 rounded-full translate-y-24 -translate-x-24"></div>
@@ -42,8 +56,14 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
                 <div className="w-32 h-32 bg-white rounded-full p-2">
                   <div className="w-full h-full bg-gray-300 rounded-full"></div>
                 </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 rounded-full"></div>
-                <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-pink-400 rounded-full"></div>
+                <div
+                  className="absolute -top-2 -right-2 w-8 h-8 rounded-full"
+                  style={{ backgroundColor: resume.content.design.secondaryColor }}
+                ></div>
+                <div
+                  className="absolute -bottom-2 -left-2 w-6 h-6 rounded-full"
+                  style={{ backgroundColor: resume.content.design.secondaryColor }}
+                ></div>
               </div>
 
               <div className="text-white">
@@ -115,7 +135,12 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
               {/* Experience with Creative Timeline */}
               <section>
                 <div className="flex items-center mb-6">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center mr-4">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center mr-4"
+                    style={{
+                      background: `linear-gradient(135deg, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                    }}
+                  >
                     <span className="text-white font-bold">💼</span>
                   </div>
                   <h2 className="text-2xl font-bold text-gray-900">EXPERIENCE</h2>
@@ -123,13 +148,21 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
 
                 <div className="relative">
                   {/* Timeline Line */}
-                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-green-400 to-teal-500"></div>
+                  <div
+                    className="absolute left-6 top-0 bottom-0 w-0.5"
+                    style={{
+                      background: `linear-gradient(to bottom, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                    }}
+                  ></div>
 
                   <div className="space-y-8">
                     {data.experience.map((job, index) => (
                       <div key={index} className="relative pl-16">
                         {/* Timeline Dot */}
-                        <div className="absolute left-4 w-4 h-4 bg-teal-500 rounded-full border-4 border-white shadow-lg"></div>
+                        <div
+                          className="absolute left-4 w-4 h-4 rounded-full border-4 border-white shadow-lg"
+                          style={{ backgroundColor: resume.content.design.secondaryColor }}
+                        ></div>
 
                         <div className="bg-gray-50 rounded-lg p-6">
                           <div className="flex justify-between items-start mb-3">
@@ -144,13 +177,20 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
                               <EditableText
                                 value={job.company}
                                 onChange={(value) => { }}
-                                className="text-teal-600 font-semibold"
+                                className="font-semibold"
+                                style={{ color: resume.content.design.secondaryColor }}
                                 placeholder="Company"
                                 tag="p"
                               />
                             </div>
                             <div className="text-right">
-                              <div className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-medium">
+                              <div
+                                className="px-3 py-1 rounded-full text-sm font-medium"
+                                style={{
+                                  backgroundColor: `${resume.content.design.secondaryColor}20`,
+                                  color: resume.content.design.secondaryColor
+                                }}
+                              >
                                 <EditableText
                                   value={job.startDate}
                                   onChange={(value) => { }}
@@ -193,7 +233,12 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
               {/* Skills with Progress Bars */}
               <section>
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center mr-3">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center mr-3"
+                    style={{
+                      background: `linear-gradient(135deg, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                    }}
+                  >
                     <span className="text-white text-sm">⚡</span>
                   </div>
                   <h2 className="text-xl font-bold text-gray-900">SKILLS</h2>
@@ -201,11 +246,18 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
 
                 <div className="space-y-4">
                   {data.skills.map((skillGroup, index) => (
-                    <div key={index} className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-4">
+                    <div
+                      key={index}
+                      className="rounded-lg p-4"
+                      style={{
+                        background: `linear-gradient(to right, ${resume.content.design.secondaryColor}10, ${resume.content.design.primaryColor}10)`
+                      }}
+                    >
                       <EditableText
                         value={skillGroup.category}
                         onChange={(value) => { }}
-                        className="font-bold text-purple-600 mb-3"
+                        className="font-bold mb-3"
+                        style={{ color: resume.content.design.secondaryColor }}
                         placeholder="Category"
                         tag="h3"
                       />
@@ -219,7 +271,13 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
                               placeholder="Skill"
                             />
                             <div className="w-16 h-2 bg-gray-200 rounded-full ml-2">
-                              <div className="h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full" style={{ width: '85%' }}></div>
+                              <div
+                                className="h-full rounded-full"
+                                style={{
+                                  width: '85%',
+                                  background: `linear-gradient(to right, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                                }}
+                              ></div>
                             </div>
                           </div>
                         ))}
@@ -232,24 +290,36 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
               {/* Education */}
               <section>
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center mr-3">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center mr-3"
+                    style={{
+                      background: `linear-gradient(135deg, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                    }}
+                  >
                     <span className="text-white text-sm">🎓</span>
                   </div>
                   <h2 className="text-xl font-bold text-gray-900">EDUCATION</h2>
                 </div>
 
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4">
+                <div
+                  className="rounded-lg p-4"
+                  style={{
+                    background: `linear-gradient(to right, ${resume.content.design.secondaryColor}10, ${resume.content.design.primaryColor}10)`
+                  }}
+                >
                   <EditableText
                     value="Bachelor of Science"
                     onChange={(value) => { }}
-                    className="font-bold text-blue-600"
+                    className="font-bold"
+                    style={{ color: resume.content.design.secondaryColor }}
                     placeholder="Degree"
                     tag="h3"
                   />
                   <EditableText
                     value="Computer Science"
                     onChange={(value) => { }}
-                    className="text-indigo-600 font-medium"
+                    className="font-medium"
+                    style={{ color: resume.content.design.secondaryColor }}
                     placeholder="Field"
                     tag="p"
                   />
@@ -273,7 +343,12 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
               {/* Languages with Creative Indicators */}
               <section>
                 <div className="flex items-center mb-4">
-                  <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center mr-3">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center mr-3"
+                    style={{
+                      background: `linear-gradient(135deg, ${resume.content.design.primaryColor} 0%, ${resume.content.design.secondaryColor} 100%)`
+                    }}
+                  >
                     <span className="text-white text-sm">🌍</span>
                   </div>
                   <h2 className="text-xl font-bold text-gray-900">LANGUAGES</h2>
@@ -281,7 +356,13 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
 
                 <div className="space-y-3">
                   {data.languages.map((lang, index) => (
-                    <div key={index} className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3">
+                    <div
+                      key={index}
+                      className="rounded-lg p-3"
+                      style={{
+                        background: `linear-gradient(to right, ${resume.content.design.secondaryColor}10, ${resume.content.design.primaryColor}10)`
+                      }}
+                    >
                       <div className="flex justify-between items-center mb-2">
                         <EditableText
                           value={lang.language}
@@ -292,7 +373,8 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
                         <EditableText
                           value={lang.proficiency}
                           onChange={(value) => { }}
-                          className="text-sm text-green-600 font-medium"
+                          className="text-sm font-medium"
+                          style={{ color: resume.content.design.secondaryColor }}
                           placeholder="Level"
                         />
                       </div>
@@ -300,10 +382,8 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({ resume }) => {
                         {Array.from({ length: 5 }, (_, i) => (
                           <div
                             key={i}
-                            className={`w-4 h-4 rounded-full ${i < lang.level
-                              ? 'bg-gradient-to-r from-green-400 to-emerald-500'
-                              : 'bg-gray-200'
-                              }`}
+                            className="w-4 h-4 rounded-full"
+                            style={{ backgroundColor: i < lang.level ? resume.content.design.primaryColor : '#e5e7eb' }}
                           ></div>
                         ))}
                       </div>

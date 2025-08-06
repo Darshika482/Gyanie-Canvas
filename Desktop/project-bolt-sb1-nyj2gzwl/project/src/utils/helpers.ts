@@ -13,12 +13,12 @@ export const formatDate = (date: Date): string => {
 export const formatRelativeTime = (date: Date): string => {
   const now = new Date();
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-  
+
   if (diffInSeconds < 60) return 'Just now';
   if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} minutes ago`;
   if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} hours ago`;
   if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
-  
+
   return formatDate(date);
 };
 
@@ -92,4 +92,31 @@ export const colorPalette = {
     700: '#14171e',
     900: '#0f1117',
   },
+};
+
+
+
+export const getDesignStyles = (design: any) => {
+  return {
+    primaryColor: design.primaryColor || '#2c3e50',
+    secondaryColor: design.secondaryColor || '#34495e',
+    fontFamily: design.fontFamily || 'Inter',
+    fontSize: design.fontSize === 'small' ? '14px' :
+      design.fontSize === 'large' ? '18px' : '16px',
+  };
+};
+
+export const getTextColorClass = (design: any, isPrimary: boolean = true) => {
+  const color = isPrimary ? design.primaryColor : design.secondaryColor;
+  return { color };
+};
+
+export const getBackgroundColorClass = (design: any, isPrimary: boolean = true) => {
+  const color = isPrimary ? design.primaryColor : design.secondaryColor;
+  return { backgroundColor: color };
+};
+
+export const getBorderColorClass = (design: any, isPrimary: boolean = true) => {
+  const color = isPrimary ? design.primaryColor : design.secondaryColor;
+  return { borderColor: color };
 };

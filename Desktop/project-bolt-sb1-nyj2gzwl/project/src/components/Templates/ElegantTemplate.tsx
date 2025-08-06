@@ -28,23 +28,38 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto">
       <div className="flex">
-        {/* Left Sidebar - Teal */}
-        <div className="w-1/3 bg-teal-600 text-white p-6">
+        {/* Left Sidebar */}
+        <div
+          className="w-1/3 text-white p-6"
+          style={{ backgroundColor: resume.content.design.primaryColor }}
+        >
           {/* Profile Photo */}
-          <div className="w-32 h-32 bg-teal-500 rounded-full mx-auto mb-6 flex items-center justify-center">
-            <div className="w-28 h-28 bg-teal-400 rounded-full"></div>
+          <div
+            className="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center"
+            style={{ backgroundColor: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
+          >
+            <div
+              className="w-28 h-28 rounded-full"
+              style={{ backgroundColor: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
+            ></div>
           </div>
 
           {/* Contact */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 border-b border-teal-400 pb-2">CONTACT</h3>
+            <h3
+              className="text-lg font-bold mb-4 pb-2"
+              style={{ borderBottom: `2px solid ${resume.content.design.secondaryColor || resume.content.design.primaryColor}` }}
+            >
+              CONTACT
+            </h3>
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <span>📞</span>
                 <EditableText
                   value={resume.content.personalInfo.phone || data.personalInfo.phone}
                   onChange={(value) => updatePersonalInfo('phone', value)}
-                  className="text-teal-100"
+                  className=""
+                  style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                   placeholder="Phone"
                 />
               </div>
@@ -53,7 +68,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                 <EditableText
                   value={resume.content.personalInfo.email || data.personalInfo.email}
                   onChange={(value) => updatePersonalInfo('email', value)}
-                  className="text-teal-100"
+                  className=""
+                  style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                   placeholder="Email"
                 />
               </div>
@@ -62,7 +78,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                 <EditableText
                   value={resume.content.personalInfo.website || data.personalInfo.website}
                   onChange={(value) => updatePersonalInfo('website', value)}
-                  className="text-teal-100"
+                  className=""
+                  style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                   placeholder="Website"
                 />
               </div>
@@ -71,7 +88,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                 <EditableText
                   value={resume.content.personalInfo.location || data.personalInfo.location}
                   onChange={(value) => updatePersonalInfo('location', value)}
-                  className="text-teal-100"
+                  className=""
+                  style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                   placeholder="Location"
                 />
               </div>
@@ -80,7 +98,12 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
 
           {/* Skills */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 border-b border-teal-400 pb-2">SKILLS</h3>
+            <h3
+              className="text-lg font-bold mb-4 pb-2"
+              style={{ borderBottom: `2px solid ${resume.content.design.secondaryColor || resume.content.design.primaryColor}` }}
+            >
+              SKILLS
+            </h3>
             <div className="space-y-4">
               {data.skills.map((skillGroup, index) => (
                 <div key={index}>
@@ -93,11 +116,12 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                   />
                   <div className="space-y-1">
                     {skillGroup.skills.map((skill, i) => (
-                      <div key={i} className="text-sm text-teal-100">
+                      <div key={i} className="text-sm">
                         • <EditableText
                           value={skill}
                           onChange={(value) => { }}
-                          className="text-teal-100 inline"
+                          className="inline"
+                          style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                           placeholder="Skill"
                         />
                       </div>
@@ -110,7 +134,12 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
 
           {/* Training */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold mb-4 border-b border-teal-400 pb-2">TRAINING</h3>
+            <h3
+              className="text-lg font-bold mb-4 pb-2"
+              style={{ borderBottom: `2px solid ${resume.content.design.secondaryColor || resume.content.design.primaryColor}` }}
+            >
+              TRAINING
+            </h3>
             <div className="space-y-4">
               {data.training.map((course, index) => (
                 <div key={index}>
@@ -124,7 +153,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                   <EditableText
                     value={course.provider}
                     onChange={(value) => { }}
-                    className="text-teal-100 text-xs"
+                    className="text-xs"
+                    style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                     placeholder="Provider"
                     tag="p"
                   />
@@ -135,7 +165,12 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
 
           {/* Languages */}
           <div>
-            <h3 className="text-lg font-bold mb-4 border-b border-teal-400 pb-2">LANGUAGES</h3>
+            <h3
+              className="text-lg font-bold mb-4 pb-2"
+              style={{ borderBottom: `2px solid ${resume.content.design.secondaryColor || resume.content.design.primaryColor}` }}
+            >
+              LANGUAGES
+            </h3>
             <div className="space-y-3">
               {data.languages.map((lang, index) => (
                 <div key={index}>
@@ -149,7 +184,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                     <EditableText
                       value={lang.proficiency}
                       onChange={(value) => { }}
-                      className="text-xs text-teal-200"
+                      className="text-xs"
+                      style={{ color: `${resume.content.design.secondaryColor || resume.content.design.primaryColor}80` }}
                       placeholder="Level"
                     />
                   </div>
@@ -157,8 +193,10 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                     {Array.from({ length: 5 }, (_, i) => (
                       <div
                         key={i}
-                        className={`w-2 h-2 rounded-full ${i < lang.level ? 'bg-white' : 'bg-teal-400'
-                          }`}
+                        className={`w-2 h-2 rounded-full ${i < lang.level ? 'bg-white' : ''}`}
+                        style={{
+                          backgroundColor: i < lang.level ? 'white' : `${resume.content.design.secondaryColor || resume.content.design.primaryColor}40`
+                        }}
                       ></div>
                     ))}
                   </div>
@@ -182,7 +220,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
             <EditableText
               value={resume.content.personalInfo.summary || "Professional Title"}
               onChange={(value) => updatePersonalInfo('summary', value)}
-              className="text-xl text-teal-600 font-light"
+              className="text-xl font-light"
+              style={{ color: resume.content.design.primaryColor }}
               placeholder="Professional title"
               tag="p"
             />
@@ -208,7 +247,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
                       <EditableText
                         value={job.company}
                         onChange={(value) => { }}
-                        className="text-lg text-teal-600"
+                        className="text-lg"
+                        style={{ color: resume.content.design.primaryColor }}
                         placeholder="Company"
                         tag="p"
                       />
@@ -265,7 +305,8 @@ const ElegantTemplate: React.FC<ElegantTemplateProps> = ({ resume }) => {
               <EditableText
                 value="University of Technology"
                 onChange={(value) => { }}
-                className="text-teal-600"
+                className=""
+                style={{ color: resume.content.design.primaryColor }}
                 placeholder="Institution"
                 tag="p"
               />

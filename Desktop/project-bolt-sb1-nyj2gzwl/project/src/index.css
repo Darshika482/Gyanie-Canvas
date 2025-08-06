@@ -1,3 +1,84 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom slider styles */
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #10b981;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider:focus {
+    outline: none;
+}
+
+.slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+.slider:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+}
+
+/* Resume page styling */
+.resume-preview {
+    background: #f5f5f5;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.resume-page {
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 20px auto;
+    page-break-after: always;
+    page-break-inside: avoid;
+}
+
+.resume-page:last-child {
+    page-break-after: auto;
+}
+
+/* Section styling for page breaks */
+.resume-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.resume-section-header {
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+/* Print styles */
+@media print {
+    .resume-preview {
+        background: white;
+        padding: 0;
+    }
+
+    .resume-page {
+        box-shadow: none;
+        margin: 0;
+        page-break-after: always;
+    }
+
+    .resume-page:last-child {
+        page-break-after: auto;
+    }
+}

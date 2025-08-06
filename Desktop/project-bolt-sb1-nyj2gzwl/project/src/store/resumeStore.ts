@@ -11,7 +11,7 @@ interface ResumeStore {
   templates: Template[];
   searchQuery: string;
   filterBy: 'all' | 'recent' | 'template';
-  
+
   // Actions
   createResume: (title: string, templateId: string, content?: Partial<ResumeContent>) => Resume;
   updateResume: (id: string, updates: Partial<Resume>) => void;
@@ -56,12 +56,22 @@ export const useResumeStore = create<ResumeStore>()(
       updateResume: (id, updates) => {
         set((state) => ({
           resumes: state.resumes.map((resume) =>
-            resume.id === id 
-              ? { ...resume, ...updates, lastModified: new Date() }
+            resume.id === id
+              ? {
+                ...resume,
+                ...updates,
+                content: updates.content ? { ...resume.content, ...updates.content } : resume.content,
+                lastModified: new Date()
+              }
               : resume
           ),
-          currentResume: state.currentResume?.id === id 
-            ? { ...state.currentResume, ...updates, lastModified: new Date() }
+          currentResume: state.currentResume?.id === id
+            ? {
+              ...state.currentResume,
+              ...updates,
+              content: updates.content ? { ...state.currentResume.content, ...updates.content } : state.currentResume.content,
+              lastModified: new Date()
+            }
             : state.currentResume,
         }));
       },
@@ -117,12 +127,12 @@ export const useResumeStore = create<ResumeStore>()(
 
         // Apply category filter
         if (filterBy === 'recent') {
-          filtered = filtered.sort((a, b) => 
+          filtered = filtered.sort((a, b) =>
             new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
           ).slice(0, 5);
         }
 
-        return filtered.sort((a, b) => 
+        return filtered.sort((a, b) =>
           new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
         );
       },
@@ -150,7 +160,9 @@ export const useResumeStore = create<ResumeStore>()(
           const str = localStorage.getItem(name);
           if (!str) return null;
           const data = JSON.parse(str);
-          
+
+
+
           // Convert date strings back to Date objects
           if (data.state?.resumes) {
             data.state.resumes = data.state.resumes.map((resume: any) => ({
@@ -159,7 +171,7 @@ export const useResumeStore = create<ResumeStore>()(
               createdAt: new Date(resume.createdAt),
             }));
           }
-          
+
           if (data.state?.currentResume) {
             data.state.currentResume = {
               ...data.state.currentResume,
@@ -167,7 +179,7 @@ export const useResumeStore = create<ResumeStore>()(
               createdAt: new Date(data.state.currentResume.createdAt),
             };
           }
-          
+
           return data;
         },
         setItem: (name, value) => {

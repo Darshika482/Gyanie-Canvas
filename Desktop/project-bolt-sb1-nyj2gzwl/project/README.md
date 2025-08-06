@@ -138,4 +138,6 @@ For support and questions, please open an issue on GitHub or contact the develop
 
 ---
 
-Built with ❤️ by the DataSense team 
+Built with ❤️ by the DataSense team
+
+**Latest Update**: Repository structure fixed for Vercel deployment - all files now in root directory 

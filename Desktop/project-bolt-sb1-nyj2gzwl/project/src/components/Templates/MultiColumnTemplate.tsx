@@ -26,10 +26,13 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
   };
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto">
+    <div
+      className="bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl mx-auto"
+      key={`${resume.id}-${resume.content.design.primaryColor}-${resume.content.design.secondaryColor}`}
+    >
       <div>
         {/* Header */}
-        <div className="bg-gray-100 p-6 text-center">
+        <div className="p-6 text-center" style={{ backgroundColor: resume.content.design.secondaryColor }}>
           <EditableText
             value={resume.content.personalInfo.fullName || data.personalInfo.fullName}
             onChange={(value) => updatePersonalInfo('fullName', value)}
@@ -40,29 +43,30 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
           <EditableText
             value={resume.content.personalInfo.summary || "Professional Title"}
             onChange={(value) => updatePersonalInfo('summary', value)}
-            className="text-lg text-gray-600 mb-4"
+            className="text-lg mb-4"
+            style={{ color: resume.content.design.secondaryColor }}
             placeholder="Professional title"
             tag="p"
           />
 
           {/* Contact Info */}
-          <div className="flex justify-center items-center space-x-6 text-sm text-gray-600">
+          <div className="flex justify-center items-center space-x-6 text-sm">
             <EditableText
               value={resume.content.personalInfo.phone || data.personalInfo.phone}
               onChange={(value) => updatePersonalInfo('phone', value)}
-              className="text-gray-600"
+              style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
               placeholder="Phone"
             />
             <EditableText
               value={resume.content.personalInfo.email || data.personalInfo.email}
               onChange={(value) => updatePersonalInfo('email', value)}
-              className="text-gray-600"
+              style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
               placeholder="Email"
             />
             <EditableText
               value={resume.content.personalInfo.location || data.personalInfo.location}
               onChange={(value) => updatePersonalInfo('location', value)}
-              className="text-gray-600"
+              style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
               placeholder="Location"
             />
           </div>
@@ -83,7 +87,8 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
               <EditableText
                 value="Professional work history and achievements"
                 onChange={(value) => { }}
-                className="text-sm text-gray-500 mb-4"
+                className="text-sm mb-4"
+                style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                 placeholder="Section description"
                 tag="p"
               />
@@ -103,13 +108,14 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
                         <EditableText
                           value={job.company}
                           onChange={(value) => { }}
-                          className="text-blue-600 font-medium"
+                          className="font-medium"
+                          style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                           placeholder="Company Name"
                           tag="p"
                         />
                       </div>
-                      <div className="text-right text-sm text-gray-600">
-                        <p>
+                      <div className="text-right text-sm">
+                        <p style={{ color: resume.content.design.secondaryColor || '#6b7280' }}>
                           <EditableText
                             value={job.startDate}
                             onChange={(value) => { }}
@@ -128,6 +134,7 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
                           value={job.location}
                           onChange={(value) => { }}
                           className="mt-1"
+                          style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                           placeholder="Location"
                           tag="p"
                         />
@@ -156,7 +163,8 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
               <EditableText
                 value="Academic qualifications and certifications"
                 onChange={(value) => { }}
-                className="text-sm text-gray-500 mb-4"
+                className="text-sm mb-4"
+                style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                 placeholder="Section description"
                 tag="p"
               />
@@ -172,14 +180,16 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
                 <EditableText
                   value="University of Technology"
                   onChange={(value) => { }}
-                  className="text-blue-600 font-medium"
+                  className="font-medium"
+                  style={{ color: resume.content.design.secondaryColor || resume.content.design.primaryColor }}
                   placeholder="Institution"
                   tag="p"
                 />
                 <EditableText
                   value="2013 - 2017"
                   onChange={(value) => { }}
-                  className="text-sm text-gray-600"
+                  className="text-sm"
+                  style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                   placeholder="Years"
                   tag="p"
                 />
@@ -201,7 +211,8 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
               <EditableText
                 value="Technical competencies"
                 onChange={(value) => { }}
-                className="text-sm text-gray-500 mb-4"
+                className="text-sm mb-4"
+                style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                 placeholder="Section description"
                 tag="p"
               />
@@ -245,7 +256,8 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
               <EditableText
                 value="Language proficiencies"
                 onChange={(value) => { }}
-                className="text-sm text-gray-500 mb-4"
+                className="text-sm mb-4"
+                style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                 placeholder="Section description"
                 tag="p"
               />
@@ -263,7 +275,8 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
                       <EditableText
                         value={lang.proficiency}
                         onChange={(value) => { }}
-                        className="text-sm text-gray-600"
+                        className="text-sm"
+                        style={{ color: resume.content.design.secondaryColor || '#6b7280' }}
                         placeholder="Level"
                       />
                     </div>
@@ -271,8 +284,10 @@ const MultiColumnTemplate: React.FC<MultiColumnTemplateProps> = ({ resume }) => 
                       {Array.from({ length: 5 }, (_, i) => (
                         <div
                           key={i}
-                          className={`w-3 h-3 rounded-full ${i < lang.level ? 'bg-blue-500' : 'bg-gray-200'
-                            }`}
+                          className={`w-3 h-3 rounded-full ${i < lang.level ? '' : 'bg-gray-200'}`}
+                          style={{
+                            backgroundColor: i < lang.level ? resume.content.design.secondaryColor || resume.content.design.primaryColor : undefined
+                          }}
                         ></div>
                       ))}
                     </div>

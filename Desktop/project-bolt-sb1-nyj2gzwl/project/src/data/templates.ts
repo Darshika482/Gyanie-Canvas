@@ -2,22 +2,13 @@ import { Template } from '../types';
 
 export const defaultTemplates: Template[] = [
   {
-    id: 'single-column',
-    name: 'Single Column',
-    category: 'Traditional',
+    id: 'enhanced',
+    name: 'Enhanced',
+    category: 'Professional',
     thumbnail: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=300',
     isPremium: false,
-    features: ['Single column layout', 'Clean typography', 'Professional'],
-    description: 'Clean single-column design perfect for traditional industries',
-  },
-  {
-    id: 'multi-column',
-    name: 'Multi Column',
-    category: 'Modern',
-    thumbnail: 'https://images.pexels.com/photos/7688339/pexels-photo-7688339.jpeg?auto=compress&cs=tinysrgb&w=300',
-    isPremium: false,
-    features: ['Multi-column layout', 'Organized sections', 'Space efficient'],
-    description: 'Multi-column layout that maximizes space utilization',
+    features: ['Modern 2-column layout', 'Sidebar design', 'Professional'],
+    description: 'Modern 2-column layout with sidebar for contact info and skills',
   },
   {
     id: 'double-column',
@@ -27,6 +18,15 @@ export const defaultTemplates: Template[] = [
     isPremium: false,
     features: ['Two-column layout', 'Dark sidebar', 'Professional'],
     description: 'Professional two-column design with dark sidebar for contact info and skills',
+  },
+  {
+    id: 'single-column',
+    name: 'Single Column',
+    category: 'Traditional',
+    thumbnail: 'https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=300',
+    isPremium: false,
+    features: ['Single column layout', 'Clean typography', 'Professional'],
+    description: 'Clean single-column design perfect for traditional industries',
   },
   {
     id: 'ivy-league',
@@ -56,10 +56,20 @@ export const defaultTemplates: Template[] = [
     description: 'Contemporary design with gradient header and colorful section indicators',
   },
   {
+    id: 'multi-column',
+    name: 'Multi Column',
+    category: 'Modern',
+    thumbnail: 'https://images.pexels.com/photos/7688339/pexels-photo-7688339.jpeg?auto=compress&cs=tinysrgb&w=300',
+    isPremium: false,
+    features: ['Multi-column layout', 'Organized sections', 'Space efficient'],
+    description: 'Multi-column layout that maximizes space utilization',
+  },
+  {
     id: 'creative',
     name: 'Creative',
     category: 'Creative',
     thumbnail: 'https://images.pexels.com/photos/7688345/pexels-photo-7688345.jpeg?auto=compress&cs=tinysrgb&w=300',
+    isPremium: false,
     features: ['Geometric elements', 'Creative layout', 'Colorful design'],
     description: 'Creative design with geometric elements and vibrant colors for artistic roles',
   },
@@ -68,6 +78,7 @@ export const defaultTemplates: Template[] = [
     name: 'Timeline',
     category: 'Timeline',
     thumbnail: 'https://images.pexels.com/photos/7688347/pexels-photo-7688347.jpeg?auto=compress&cs=tinysrgb&w=300',
+    isPremium: false,
     features: ['Timeline layout', 'Experience focused', 'Visual timeline'],
     description: 'Timeline-based design that showcases career progression with visual timeline',
   }
