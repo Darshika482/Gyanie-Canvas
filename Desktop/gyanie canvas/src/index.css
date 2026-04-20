@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-amber-500: #E8A33D;
+  --color-amber-600: #df9629;
+  --color-emerald-500: #059669;
+  
+  --color-task-reading: #3B82F6;
+  --color-task-video: #8B5CF6;
+  --color-task-chapter-quiz: #F59E0B;
+  --color-task-notes: #10B981;
+  --color-task-assignment: #EF4444;
+  --color-task-write: #6366F1;
+  --color-task-revision: #F97316;
+  --color-task-practice: #0D9488;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --radius-xl: 12px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #fafafa;
+  color: #171717;
+  overflow-x: hidden;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.show-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f5f5f5;
+}
+
+.show-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.show-scrollbar::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 999px;
+}
+
+.show-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 2px solid #f5f5f5;
+}
+
+.show-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
