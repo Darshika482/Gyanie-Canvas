@@ -116,10 +116,10 @@ function SingleBlock({ block, idx, totalBlocks, onUpdate, onUpdateImage, onUpdat
           </div>
         </div>
         <div className="w-full border-t border-neutral-200 my-2" />
-        <div className="absolute -right-7 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-          <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-3 h-3" /></button>
-          <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-3 h-3" /></button>
-          <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-3 h-3" /></button>
+        <div className="absolute -right-8 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
+          <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+          <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+          <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-4 h-4 sm:w-3 sm:h-3" /></button>
         </div>
       </div>
     );
@@ -205,10 +205,10 @@ function SingleBlock({ block, idx, totalBlocks, onUpdate, onUpdateImage, onUpdat
             )}
           </div>
         </div>
-        <div className="absolute -right-7 top-4 flex flex-col items-center gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-          <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-3 h-3" /></button>
-          <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-3 h-3" /></button>
-          <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-3 h-3" /></button>
+        <div className="absolute -right-8 top-4 flex flex-col items-center gap-1 lg:opacity-0 lg:group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
+          <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+          <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+          <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-4 h-4 sm:w-3 sm:h-3" /></button>
         </div>
       </div>
     );
@@ -245,12 +245,12 @@ function SingleBlock({ block, idx, totalBlocks, onUpdate, onUpdateImage, onUpdat
 
   return (
     <div ref={containerRef} className="group relative flex items-start py-1 px-1 -mx-1 rounded-lg hover:bg-neutral-50/80 transition-colors">
-      <div className="absolute -left-8 top-2.5 opacity-60 group-hover:opacity-100 transition-opacity flex flex-col items-center gap-0.5">
+      <div className="absolute -left-8 top-2.5 opacity-60 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity flex flex-col items-center gap-0.5">
         <div
           {...dragHandleProps}
-          className="text-neutral-300 hover:text-neutral-500 cursor-grab active:cursor-grabbing p-1"
+          className="text-neutral-300 hover:text-neutral-500 cursor-grab active:cursor-grabbing p-1.5 sm:p-1"
         >
-          <GripVertical className="w-3.5 h-3.5" />
+          <GripVertical className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
         </div>
       </div>
 
@@ -325,10 +325,10 @@ function SingleBlock({ block, idx, totalBlocks, onUpdate, onUpdateImage, onUpdat
         />
       </div>
 
-      <div className="absolute -right-7 top-2.5 flex flex-col items-center gap-1 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-        <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-3 h-3" /></button>
-        <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-3 h-3" /></button>
-        <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-3 h-3" /></button>
+      <div className="absolute -right-8 top-2.5 flex flex-col items-center gap-1 lg:opacity-0 lg:group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
+        <button onClick={onMoveUp} disabled={idx === 0} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronUp className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+        <button onClick={onMoveDown} disabled={idx === totalBlocks - 1} className="text-neutral-300 hover:text-neutral-600 disabled:opacity-30"><ChevronDown className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+        <button onClick={onDelete} className="text-neutral-300 hover:text-rose-500"><Trash2 className="w-4 h-4 sm:w-3 sm:h-3" /></button>
       </div>
     </div>
   );
@@ -408,7 +408,13 @@ function ReadingWorkspace({ blocks, onUpdateBlocks }: { blocks: Block[]; onUpdat
   return (
     <div className="flex-1 flex flex-col min-h-0">
       {/* ── Top Toolbar ── */}
-      <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-neutral-100 px-3 sm:px-6 py-1.5 flex items-center gap-0.5 overflow-x-auto">
+      <div 
+        className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-neutral-100 px-3 sm:px-6 py-1.5 flex items-center gap-0.5 overflow-x-auto"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <style>{`
+          .sticky::-webkit-scrollbar { display: none; }
+        `}</style>
         {BLOCK_MENU.slice(0, 4).map(b => (
           <button
             key={b.type}
@@ -444,7 +450,7 @@ function ReadingWorkspace({ blocks, onUpdateBlocks }: { blocks: Block[]; onUpdat
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className="w-full pl-6 pr-8 sm:pl-10 sm:pr-10"
+                className="w-full max-w-3xl mx-auto pl-10 pr-10 sm:pl-12 sm:pr-12"
               >
                 {blocks.map((block, idx) => (
                   <Draggable key={block.id} draggableId={block.id} index={idx}>
@@ -1572,7 +1578,7 @@ export function AuthoringStage() {
       </div>
 
       {/* ─── Main Authoring Area ─── */}
-      <div className={cn("bg-gradient-to-b flex flex-col overflow-y-auto show-scrollbar relative min-w-0 transition-all", previewMode ? (isFullscreen ? "fixed inset-0 z-[100] bg-white" : "flex-1 from-neutral-100/80 to-neutral-50 px-2 sm:px-4 lg:px-6 py-6 lg:py-10") : "flex-1 from-neutral-100/80 to-neutral-50 py-6 lg:py-10 px-2 sm:px-4 lg:px-6")}>
+      <div className={cn("bg-gradient-to-b flex flex-col overflow-y-auto show-scrollbar relative min-w-0 transition-all", previewMode ? (isFullscreen ? "fixed inset-0 z-[100] bg-white" : "flex-1 from-neutral-100/80 to-neutral-50 px-2 sm:px-4 lg:px-6 py-6 lg:py-10 pb-24 lg:pb-10") : "flex-1 from-neutral-100/80 to-neutral-50 py-6 lg:py-10 px-2 sm:px-4 lg:px-6 pb-24 lg:pb-10")}>
 
         {!previewMode && (
           <div className="absolute top-3 lg:top-5 left-3 lg:left-5 z-20 flex items-center gap-3">
@@ -1838,6 +1844,7 @@ export function AuthoringStage() {
                                           setActiveStepId(activeStepId === step.id ? null : step.id);
                                         }
                                       }}
+                                      onDoubleClick={() => setActiveStepId(step.id)}
                                     >
                                       <div
                                         {...provided.dragHandleProps}
@@ -1934,16 +1941,23 @@ export function AuthoringStage() {
       </aside>
 
       {/* Mobile editor controls */}
-      <div className="lg:hidden absolute left-3 right-3 bottom-3 z-40 rounded-xl bg-white/95 backdrop-blur border border-neutral-200 shadow-lg p-2 flex items-center justify-between">
-        <button onClick={() => setMobilePanel('resources')} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:bg-neutral-100 transition-colors">
-          <Library className="w-4 h-4" /> Resources
-        </button>
-        <button className="mx-2 py-2 px-3 rounded-lg bg-neutral-900 text-white text-[10px] font-bold tracking-wide">
-          Preview
-        </button>
-        <button onClick={() => setMobilePanel('config')} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:bg-neutral-100 transition-colors">
-          <SlidersHorizontal className="w-4 h-4" /> Config
-        </button>
+      <div className="lg:hidden fixed left-3 right-3 bottom-0 pb-3 z-40 flex items-center justify-between">
+        <div className="w-full rounded-xl bg-white/95 backdrop-blur border border-neutral-200 shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-2 flex items-center justify-between">
+          <button onClick={() => setMobilePanel('resources')} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:bg-neutral-100 transition-colors">
+            <Library className="w-4 h-4" /> Resources
+          </button>
+          
+          <button 
+            onClick={() => { setPreviewMode(true); setPreviewStepIdx(-1); setIsFullscreen(false); setMobilePanel('none'); }}
+            className="mx-2 py-2 px-4 rounded-lg bg-gradient-to-r from-neutral-900 to-neutral-800 text-white text-[10px] font-bold tracking-widest uppercase shadow-md shadow-neutral-900/20 hover:shadow-lg hover:from-neutral-800 hover:to-neutral-700 active:scale-[0.98] transition-all"
+          >
+            Preview
+          </button>
+
+          <button onClick={() => setMobilePanel('config')} className="flex items-center justify-center gap-1.5 flex-1 py-2 rounded-lg text-xs font-semibold text-neutral-600 hover:bg-neutral-100 transition-colors">
+            <SlidersHorizontal className="w-4 h-4" /> Config
+          </button>
+        </div>
       </div>
 
       {mobilePanel !== 'none' && (
@@ -1959,7 +1973,7 @@ export function AuthoringStage() {
           <div className="p-3 border-b border-neutral-100">
             <input type="text" value={resourceSearch} onChange={e => setResourceSearch(e.target.value)} placeholder="Search resources…" className="w-full px-3 py-2 text-sm bg-neutral-50 border border-neutral-200 rounded-lg outline-none focus:border-amber-400" />
           </div>
-          <div className="flex-1 overflow-y-auto p-3 space-y-2">
+          <div className="flex-1 overflow-y-auto p-3 space-y-2 pb-24">
             {resources.filter(r => r.title.toLowerCase().includes(resourceSearch.toLowerCase())).map(r => (
               <div key={`mobile-${r.id}`} className="p-3 border border-neutral-200 rounded-xl bg-white">
                 <h4 className="text-sm font-semibold text-neutral-800 truncate">{r.title}</h4>
@@ -1976,7 +1990,20 @@ export function AuthoringStage() {
             <h3 className="font-bold text-sm text-neutral-700">Task Config</h3>
             <button onClick={() => setMobilePanel('none')} className="w-7 h-7 rounded-md flex items-center justify-center text-neutral-400 hover:bg-neutral-100"><X className="w-4 h-4" /></button>
           </div>
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+            <div>
+              <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Task Type</label>
+              <select value={taskType} onChange={e => setTaskType(e.target.value as TaskType)} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none cursor-pointer appearance-none">
+                <option value="Reading">Reading</option>
+                <option value="Video">Video</option>
+                <option value="Practice">Practice</option>
+                <option value="Chapter Quiz">Chapter Quiz</option>
+                <option value="Notes">Notes</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Revision">Revision</option>
+                <option value="Write">Write</option>
+              </select>
+            </div>
             <div>
               <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Task Name</label>
               <input type="text" value={taskName} onChange={e => setTaskName(e.target.value)} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none" />
@@ -1986,16 +2013,193 @@ export function AuthoringStage() {
               <input type="text" value={taskDescription} onChange={e => setTaskDescription(e.target.value)} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-medium bg-neutral-50/50 outline-none" />
             </div>
             <div className="grid grid-cols-2 gap-2.5">
-              <input type="number" value={taskMinutes} onChange={e => setTaskMinutes(Number(e.target.value))} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none" />
-              <select value={taskDifficulty} onChange={e => setTaskDifficulty(e.target.value as Task['difficulty'])} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none">
-                <option>Easy</option>
-                <option>Medium</option>
-                <option>Hard</option>
-              </select>
+              <div>
+                <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Mins</label>
+                <input type="number" value={taskMinutes} onChange={e => setTaskMinutes(Number(e.target.value))} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none" />
+              </div>
+              <div>
+                <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Difficulty</label>
+                <select value={taskDifficulty} onChange={e => setTaskDifficulty(e.target.value as Task['difficulty'])} className="w-full p-2.5 border border-neutral-200 rounded-xl text-sm font-semibold bg-neutral-50/50 outline-none">
+                  <option>Easy</option>
+                  <option>Medium</option>
+                  <option>Hard</option>
+                </select>
+              </div>
             </div>
-            <button onClick={addStep} className="w-full py-2.5 border border-dashed border-neutral-300 rounded-xl text-xs font-semibold text-neutral-500">
-              Add Step
-            </button>
+
+            {/* Type-specific config */}
+            {taskType === 'Chapter Quiz' && (
+              <div className="pt-4 border-t border-neutral-100 space-y-3">
+                <div>
+                  <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Passing %</label>
+                  <select value={passingPercent} onChange={e => setPassingPercent(e.target.value)} className="w-full p-2 border border-neutral-200/70 rounded-xl text-xs font-semibold bg-neutral-50/50 text-neutral-900 outline-none">
+                    <option>50%</option><option>60%</option><option>70%</option><option>80%</option><option>90%</option>
+                  </select>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-amber-50/80 rounded-xl border border-amber-200/50">
+                  <span className="text-[11px] font-semibold text-amber-700">Questions</span>
+                  <span className="text-base font-black text-amber-600">{activeStepId ? (stepQuizQuestions[activeStepId] || []).length : quizQuestions.length}</span>
+                </div>
+              </div>
+            )}
+
+            {taskType === 'Video' && (
+              <div className="pt-4 border-t border-neutral-100">
+                <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Video URL</label>
+                <input 
+                  type="url" 
+                  value={activeStepId ? (stepVideoUrls[activeStepId] || '') : videoUrl} 
+                  onChange={e => activeStepId ? setStepVideoUrls(prev => ({...prev, [activeStepId]: e.target.value})) : setVideoUrl(e.target.value)} 
+                  placeholder="https://youtube.com/watch?v=…" 
+                  className="w-full p-2 border border-neutral-200/70 rounded-xl text-xs font-medium bg-neutral-50/50 text-neutral-900 outline-none focus:border-purple-300 focus:ring-2 focus:ring-purple-500/10 transition-all" 
+                />
+              </div>
+            )}
+
+            {taskType === 'Write' && (
+              <div className="pt-4 border-t border-neutral-100">
+                <label className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-widest mb-1.5">Word Limit</label>
+                <input type="number" value={wordLimit} onChange={e => setWordLimit(Number(e.target.value))} className="w-full p-2 border border-neutral-200/70 rounded-xl text-xs font-medium bg-neutral-50/50 text-neutral-900 outline-none focus:border-indigo-300 focus:ring-2 focus:ring-indigo-500/10 transition-all" />
+              </div>
+            )}
+
+            {taskType === 'Practice' && (
+              <div className="pt-4 border-t border-neutral-100">
+                <div className="flex justify-between items-center p-3 bg-teal-50/80 rounded-xl border border-teal-200/50">
+                  <span className="text-[11px] font-semibold text-teal-700">Problems</span>
+                  <span className="text-base font-black text-teal-600">{activeStepId ? (stepProblems[activeStepId] || []).length : problems.length}</span>
+                </div>
+              </div>
+            )}
+
+            {taskType === 'Revision' && (
+              <div className="pt-4 border-t border-neutral-100">
+                <div className="flex justify-between items-center p-3 bg-orange-50/80 rounded-xl border border-orange-200/50">
+                  <span className="text-[11px] font-semibold text-orange-700">Cards</span>
+                  <span className="text-base font-black text-orange-600">{flashCards.length}</span>
+                </div>
+              </div>
+            )}
+
+            {taskType === 'Assignment' && (
+              <div className="pt-4 border-t border-neutral-100">
+                <div className="flex justify-between items-center p-3 bg-red-50/80 rounded-xl border border-red-200/50">
+                  <span className="text-[11px] font-semibold text-red-700">Deliverables</span>
+                  <span className="text-base font-black text-red-600">{deliverables.length}</span>
+                </div>
+              </div>
+            )}
+
+            {/* Task Steps */}
+            <div className="pt-4 border-t border-neutral-100 flex-1 min-h-0 flex flex-col">
+              <button onClick={() => setStepsExpanded(!stepsExpanded)} className="w-full flex items-center justify-between mb-3 group shrink-0">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
+                  <List className="w-3.5 h-3.5" />Task Steps <span className="text-neutral-300 font-medium normal-case">({steps.length})</span>
+                </span>
+                <ChevronRight className={cn("w-3 h-3 text-neutral-400 transition-transform duration-200", stepsExpanded && "rotate-90")} />
+              </button>
+              {stepsExpanded && (
+                <div className="flex-1 space-y-1.5 pb-4">
+                  <DragDropContext onDragEnd={onDragEndSteps}>
+                    <Droppable droppableId="task-steps-mobile">
+                      {(provided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-1.5 min-h-[50px]">
+                          {steps.map((step, idx) => (
+                            <Draggable key={`mobile-${step.id}`} draggableId={`mobile-${step.id}`} index={idx}>
+                              {(provided, snapshot) => (
+                                <div
+                                  ref={provided.innerRef}
+                                  {...provided.draggableProps}
+                                  className={cn(
+                                    "group flex items-center gap-2 p-2 border rounded-xl transition-all relative cursor-pointer",
+                                    snapshot.isDragging ? "bg-white shadow-xl opacity-95 border-amber-200 z-50" : "bg-neutral-50/50 border-transparent hover:bg-white hover:border-neutral-200/70 hover:shadow-sm",
+                                    activeStepId === step.id && !snapshot.isDragging && "bg-amber-50/50 border-amber-200/60 shadow-sm"
+                                  )}
+                                  onClick={() => {
+                                    if (editingStepId !== step.id) {
+                                      setActiveStepId(activeStepId === step.id ? null : step.id);
+                                      setMobilePanel('none');
+                                    }
+                                  }}
+                                  onDoubleClick={() => {
+                                    setActiveStepId(step.id);
+                                    setMobilePanel('none');
+                                  }}
+                                >
+                                  <div
+                                    {...provided.dragHandleProps}
+                                    className="text-neutral-300 hover:text-neutral-500 p-1 cursor-grab active:cursor-grabbing opacity-60 group-hover:opacity-100 transition-opacity shrink-0"
+                                    onClick={e => e.stopPropagation()}
+                                  >
+                                    <GripVertical className="w-4 h-4 sm:w-3 sm:h-3" />
+                                  </div>
+                                  <span className={cn("text-[9px] font-bold w-4 text-center shrink-0 rounded-full py-0.5", activeStepId === step.id ? "bg-amber-500 text-white" : "text-neutral-400 bg-neutral-200/50")}>{idx + 1}</span>
+                                  
+                                  {editingStepId === step.id ? (
+                                    <input 
+                                      type="text" 
+                                      value={step.name} 
+                                      onChange={e => updateStepName(step.id, e.target.value)} 
+                                      onBlur={() => setEditingStepId(null)}
+                                      onKeyDown={e => e.key === 'Enter' && setEditingStepId(null)}
+                                      autoFocus
+                                      onClick={e => e.stopPropagation()}
+                                      className={cn("text-[11px] font-medium flex-1 outline-none min-w-0 bg-transparent", activeStepId === step.id ? "text-amber-900" : "text-neutral-700")} 
+                                    />
+                                  ) : (
+                                    <span className={cn("flex-1 text-[11px] font-medium truncate select-none", activeStepId === step.id ? "text-amber-900" : "text-neutral-700")}>
+                                      {step.name}
+                                    </span>
+                                  )}
+                                  
+                                  <button 
+                                    onClick={(e) => { 
+                                      e.stopPropagation(); 
+                                      setEditingStepId(step.id);
+                                    }} 
+                                    className={cn("text-neutral-400 hover:text-amber-600 transition-all shrink-0 p-1 lg:opacity-0 lg:group-hover:opacity-100", editingStepId === step.id && "hidden")}
+                                  >
+                                    <PenTool className="w-3 h-3" />
+                                  </button>
+
+                                  <button onClick={(e) => { e.stopPropagation(); deleteStep(step.id); }} className="text-neutral-400 hover:text-rose-500 transition-all shrink-0 ml-1 lg:opacity-0 lg:group-hover:opacity-100"><Trash2 className="w-4 h-4 sm:w-3 sm:h-3" /></button>
+                                </div>
+                              )}
+                            </Draggable>
+                          ))}
+                          {provided.placeholder}
+                        </div>
+                      )}
+                    </Droppable>
+                  </DragDropContext>
+                  <button onClick={addStep} className="w-full py-2 bg-neutral-50 hover:bg-neutral-100/80 border border-neutral-200/50 rounded-xl text-[10px] font-semibold text-neutral-400 hover:text-neutral-600 transition-all flex items-center justify-center gap-1 mt-2 mb-4">
+                    <Plus className="w-3 h-3" /> Add Step
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* AI Copilot Actions */}
+            <div className="p-3.5 bg-gradient-to-br from-violet-50 to-blue-50 rounded-2xl border border-violet-200/40 mt-1 mb-8">
+              <h4 className="text-[10px] font-bold text-violet-600 uppercase tracking-widest mb-3 flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                AI Copilot
+              </h4>
+              <div className="grid grid-cols-2 gap-1.5">
+                <button className="p-2 bg-white/80 backdrop-blur-sm border border-violet-200/40 rounded-xl text-[9px] font-semibold text-violet-700 hover:bg-violet-100/60 hover:border-violet-300/60 transition-all">Rewrite</button>
+                <button className="p-2 bg-white/80 backdrop-blur-sm border border-violet-200/40 rounded-xl text-[9px] font-semibold text-violet-700 hover:bg-violet-100/60 hover:border-violet-300/60 transition-all">Difficulty</button>
+                <button className="p-2 bg-white/80 backdrop-blur-sm border border-violet-200/40 rounded-xl text-[9px] font-semibold text-violet-700 hover:bg-violet-100/60 hover:border-violet-300/60 transition-all">Translate</button>
+                <button className="p-2 bg-white/80 backdrop-blur-sm border border-violet-200/40 rounded-xl text-[9px] font-semibold text-violet-700 hover:bg-violet-100/60 hover:border-violet-300/60 transition-all">Generate</button>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-neutral-100 shrink-0">
+              <button 
+                onClick={() => { setPreviewMode(true); setPreviewStepIdx(-1); setIsFullscreen(false); setMobilePanel('none'); }}
+                className="w-full py-3 bg-gradient-to-r from-neutral-900 to-neutral-800 text-white rounded-xl text-[11px] font-bold tracking-widest uppercase shadow-lg shadow-neutral-900/20 hover:shadow-xl hover:shadow-neutral-900/30 hover:from-neutral-800 hover:to-neutral-700 transition-all active:scale-[0.98]">
+                Preview as Student
+              </button>
+            </div>
           </div>
         </div>
       )}
