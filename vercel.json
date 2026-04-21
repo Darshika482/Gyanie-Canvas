@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "",
+  "buildCommand": "npm --prefix \"Desktop/gyanie canvas\" ci && npm --prefix \"Desktop/gyanie canvas\" run build",
+  "outputDirectory": "Desktop/gyanie canvas/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
