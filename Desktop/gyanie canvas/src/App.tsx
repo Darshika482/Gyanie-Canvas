@@ -1,7 +1,12 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Outlet, Link, useLocation, useParams } from 'react-router-dom';
 import { IntentStage } from './pages/IntentStage';
 import { BlueprintStage } from './pages/BlueprintStage';
 import { AuthoringStage } from './pages/AuthoringStage';
+
+function AuthoringStageRoute() {
+  const { taskId } = useParams();
+  return <AuthoringStage key={taskId ?? 'default'} />;
+}
 
 function AppLayout() {
   const location = useLocation();
@@ -54,7 +59,7 @@ export default function App() {
           <Route path="/" element={<Navigate to="/systems/new" replace />} />
           <Route path="/systems/new" element={<IntentStage />} />
           <Route path="/systems/:id/build" element={<BlueprintStage />} />
-          <Route path="/systems/:id/build/tasks/:taskId" element={<AuthoringStage />} />
+          <Route path="/systems/:id/build/tasks/:taskId" element={<AuthoringStageRoute />} />
         </Route>
       </Routes>
     </BrowserRouter>

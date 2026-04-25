@@ -3,6 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { HelpCircle, ChevronRight, X, ChevronLeft, Type, Image as ImageIcon, Link as LinkIcon, List, Video as VideoIcon, CheckCircle2, Circle, Plus, AlignLeft, PlaySquare, GraduationCap, PenTool, LayoutGrid, RotateCcw, Target, Settings, Trash2, GripVertical, ChevronUp, ChevronDown, Library, SlidersHorizontal, Eye, Maximize, Minimize, Bold, Italic, Underline, Highlighter, Upload } from 'lucide-react';
 import { mockSystem } from '../data/mock';
+import {
+  getAppendixAuthoringSeed,
+  NON_APPENDIX_DEFAULT_DELIVERABLES,
+  NON_APPENDIX_DEFAULT_FLASH_CARDS,
+  NON_APPENDIX_DEFAULT_PROBLEMS,
+  NON_APPENDIX_DEFAULT_QUIZ,
+  NON_APPENDIX_DEFAULT_READING_BLOCKS,
+} from '../data/appendixAuthoring';
 import { Task, TaskType } from '../types';
 
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
@@ -1089,6 +1097,7 @@ export function AuthoringStage() {
 
   const allTasks = mockSystem.modules.flatMap(m => m.tasks);
   const foundTask = allTasks.find(t => t.id === taskId) || allTasks[0];
+  const appendixSeed = getAppendixAuthoringSeed(taskId);
 
   // ── Core task state ──
   const [taskName, setTaskName] = useState(foundTask?.name || 'New Task');
@@ -1101,41 +1110,25 @@ export function AuthoringStage() {
   const [steps, setSteps] = useState<Task[]>(foundTask?.subtasks || []);
 
   // ── Workspace-specific state ──
-  const [editorBlocks, setEditorBlocks] = useState<Block[]>([
-    { id: uid(), type: 'heading2', content: 'Introduction' },
-    { id: uid(), type: 'text', content: 'This is the reading assignment. Students will review this before moving on to the next step.' },
-    { id: uid(), type: 'callout', content: 'Pay close attention to the key terms highlighted in the document.' },
-    { id: uid(), type: 'heading3', content: 'Section 1: Foundations' },
-    { id: uid(), type: 'text', content: 'The cosmos is everything that exists — all of space and time and their contents, including planets, moons, minor planets and stars.' },
-    { id: uid(), type: 'bulletList', content: 'Stars are born in clouds of dust and gas called nebulae' },
-    { id: uid(), type: 'bulletList', content: 'Gravity pulls the dust and gas together to form a protostar' },
-    { id: uid(), type: 'bulletList', content: 'Nuclear fusion ignites in the core, and a star is born' },
-    { id: uid(), type: 'divider', content: '' },
-    { id: uid(), type: 'quote', content: 'The nitrogen in our DNA, the calcium in our teeth, the iron in our blood — were made in the interiors of collapsing stars. — Carl Sagan' },
-  ]);
-  const [videoUrl, setVideoUrl] = useState('');
-  const [problems, setProblems] = useState<ProblemItem[]>([
-    { id: uid(), text: 'Evaluate the expression for x = 3' },
-    { id: uid(), text: 'Simplify the polynomial' },
-    { id: uid(), text: 'Factor the quadratic equation' },
-  ]);
-  const [writePrompt, setWritePrompt] = useState('Write a 500 word essay on the topic…');
-  const [notesInstructions, setNotesInstructions] = useState('');
-  const [deliverables, setDeliverables] = useState<Deliverable[]>([
-    { id: uid(), text: 'Rough Draft Document', done: false, fileType: 'Document' },
-    { id: uid(), text: 'Final Submission (PDF)', done: false, fileType: 'PDF' },
-  ]);
-  const [flashCards, setFlashCards] = useState<FlashCard[]>([
-    { id: uid(), front: 'Supernova', back: 'The brilliant explosion of a star.' },
-    { id: uid(), front: 'Nebula', back: 'A giant cloud of dust and gas in space.' },
-  ]);
+  const [editorBlocks, setEditorBlocks] = useState<Block[]>(
+    () => (appendixSeed?.editorBlocks ?? NON_APPENDIX_DEFAULT_READING_BLOCKS) as Block[]
+  );
+  const [videoUrl, setVideoUrl] = useState(() => appendixSeed?.videoUrl ?? '');
+  const [problems, setProblems] = useState<ProblemItem[]>(() => appendixSeed?.problems ?? NON_APPENDIX_DEFAULT_PROBLEMS);
+  const [writePrompt, setWritePrompt] = useState(() => appendixSeed?.writePrompt ?? 'Write a 500 word essay on the topic…');
+  const [notesInstructions, setNotesInstructions] = useState(() => appendixSeed?.notesInstructions ?? '');
+  const [deliverables, setDeliverables] = useState<Deliverable[]>(
+    () => (appendixSeed?.deliverables ?? NON_APPENDIX_DEFAULT_DELIVERABLES) as Deliverable[]
+  );
+  const [flashCards, setFlashCards] = useState<FlashCard[]>(
+    () => (appendixSeed?.flashCards ?? NON_APPENDIX_DEFAULT_FLASH_CARDS) as FlashCard[]
+  );
   const [activeCardIdx, setActiveCardIdx] = useState(0);
-  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([
-    { id: uid(), text: 'What is the closest star to Earth?', type: 'MCQ', options: ['The Sun', 'Proxima Centauri', 'Sirius', 'Alpha Centauri A'], correctIdx: 0 },
-    { id: uid(), text: 'The Moon is a star.', type: 'TrueFalse', options: ['True', 'False'], correctIdx: 1 },
-  ]);
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>(
+    () => (appendixSeed?.quizQuestions ?? NON_APPENDIX_DEFAULT_QUIZ) as QuizQuestion[]
+  );
   const [passingPercent, setPassingPercent] = useState('70%');
-  const [wordLimit, setWordLimit] = useState(500);
+  const [wordLimit, setWordLimit] = useState(() => appendixSeed?.wordLimit ?? 500);
 
   // ── Resources state ──
   const [resources, setResources] = useState<{ id: string; type: string; title: string; source: string }[]>([
@@ -1214,6 +1207,48 @@ export function AuthoringStage() {
 
   const colors = TYPE_COLORS[taskType] || TYPE_COLORS.Reading;
   const completedSteps = steps.filter(s => s.isCompleted).length;
+
+  // ── Step content seeding ──
+  useEffect(() => {
+    if (!activeStepId) return;
+    const step = steps.find(s => s.id === activeStepId);
+    if (!step) return;
+
+    // Reading tasks: seed step blocks from the step's own title/description.
+    if (taskType === 'Reading') {
+      if (stepBlocks[activeStepId] !== undefined) return;
+      const seeded: Block[] = [
+        { id: uid(), type: 'heading2', content: step.name },
+        ...(step.description ? [{ id: uid(), type: 'text', content: step.description }] : []),
+        ...(taskDescription ? [{ id: uid(), type: 'callout', content: taskDescription }] : []),
+      ] as Block[];
+      setStepBlocks(prev => ({ ...prev, [activeStepId]: seeded }));
+      return;
+    }
+
+    // Practice tasks: seed step problems by matching the step label (Q1/Q2/...) to the main problem list.
+    if (taskType === 'Practice') {
+      if (stepProblems[activeStepId] !== undefined) return;
+      const qMatch = step.name.match(/Q\\s*(\\d+)/i);
+      const qNum = qMatch ? parseInt(qMatch[1], 10) : null;
+
+      let picked: ProblemItem[] | undefined;
+      if (qNum !== null && Number.isFinite(qNum)) {
+        picked = problems.filter(p => new RegExp(`(^|\\n)\\s*(Q|Question)\\s*${qNum}\\b`, 'i').test(p.text));
+        if (picked.length === 0) {
+          // Common pattern in our stored seeds: “Question 1.” etc.
+          picked = problems.filter(p => new RegExp(`Question\\s*${qNum}\\b`, 'i').test(p.text));
+        }
+      }
+
+      const seededProblems: ProblemItem[] =
+        picked && picked.length > 0
+          ? picked.map(p => ({ ...p, id: uid() }))
+          : [{ id: uid(), text: `${step.name}\n${step.description || ''}`.trim() }];
+
+      setStepProblems(prev => ({ ...prev, [activeStepId]: seededProblems }));
+    }
+  }, [activeStepId, problems, stepBlocks, stepProblems, steps, taskDescription, taskType]);
 
   useEffect(() => {
     try {
@@ -1298,14 +1333,15 @@ export function AuthoringStage() {
     const isMain = previewStepIdx === -1;
     const currentStepId = isMain ? null : steps[previewStepIdx]?.id;
     
-    const curBlocks = isMain ? editorBlocks : (currentStepId ? stepBlocks[currentStepId] : []) || [];
-    const curVideoUrl = isMain ? videoUrl : (currentStepId ? stepVideoUrls[currentStepId] : '') || '';
-    const curProblems = isMain ? problems : (currentStepId ? stepProblems[currentStepId] : []) || [];
-    const curWritePrompt = isMain ? writePrompt : (currentStepId ? stepWritePrompts[currentStepId] : '') || '';
-    const curNotesInstructions = isMain ? notesInstructions : (currentStepId ? stepNotesInstructions[currentStepId] : '') || '';
-    const curDeliverables = isMain ? deliverables : (currentStepId ? stepDeliverables[currentStepId] : []) || [];
-    const curFlashCards = isMain ? flashCards : (currentStepId ? stepFlashCards[currentStepId] : []) || [];
-    const curQuizQuestions = isMain ? quizQuestions : (currentStepId ? stepQuizQuestions[currentStepId] : []) || [];
+    // Steps have their own payloads; if not authored yet, they are seeded when selected.
+    const curBlocks = isMain ? editorBlocks : (currentStepId ? (stepBlocks[currentStepId] || []) : []) || [];
+    const curVideoUrl = isMain ? videoUrl : (currentStepId ? (stepVideoUrls[currentStepId] || '') : '') || '';
+    const curProblems = isMain ? problems : (currentStepId ? (stepProblems[currentStepId] || []) : []) || [];
+    const curWritePrompt = isMain ? writePrompt : (currentStepId ? (stepWritePrompts[currentStepId] || '') : '') || '';
+    const curNotesInstructions = isMain ? notesInstructions : (currentStepId ? (stepNotesInstructions[currentStepId] || '') : '') || '';
+    const curDeliverables = isMain ? deliverables : (currentStepId ? (stepDeliverables[currentStepId] || []) : []) || [];
+    const curFlashCards = isMain ? flashCards : (currentStepId ? (stepFlashCards[currentStepId] || []) : []) || [];
+    const curQuizQuestions = isMain ? quizQuestions : (currentStepId ? (stepQuizQuestions[currentStepId] || []) : []) || [];
 
     const BlocksComponent = () => (
       <div className="space-y-4">
@@ -1456,48 +1492,48 @@ export function AuthoringStage() {
     switch (taskType) {
       case 'Reading':
         return <ReadingWorkspace 
-          blocks={activeStepId ? (stepBlocks[activeStepId] || []) : editorBlocks} 
+          blocks={activeStepId ? (stepBlocks[activeStepId] ?? editorBlocks) : editorBlocks} 
           onUpdateBlocks={b => activeStepId ? setStepBlocks(prev => ({ ...prev, [activeStepId]: b })) : setEditorBlocks(b)} 
         />;
       case 'Video':
         return <VideoWorkspace 
-          videoUrl={activeStepId ? (stepVideoUrls[activeStepId] || '') : videoUrl} 
+          videoUrl={activeStepId ? (stepVideoUrls[activeStepId] ?? videoUrl) : videoUrl} 
         />;
       case 'Practice':
         return <PracticeWorkspace 
-          problems={activeStepId ? (stepProblems[activeStepId] || []) : problems} 
+          problems={activeStepId ? (stepProblems[activeStepId] ?? problems) : problems} 
           onUpdate={p => activeStepId ? setStepProblems(prev => ({...prev, [activeStepId]: p})) : setProblems(p)} 
         />;
       case 'Write':
         return <WriteWorkspace 
-          prompt={activeStepId ? (stepWritePrompts[activeStepId] || '') : writePrompt} 
+          prompt={activeStepId ? (stepWritePrompts[activeStepId] ?? writePrompt) : writePrompt} 
           onPromptChange={p => activeStepId ? setStepWritePrompts(prev => ({...prev, [activeStepId]: p})) : setWritePrompt(p)} 
         />;
       case 'Notes':
         return <NotesWorkspace 
-          instructions={activeStepId ? (stepNotesInstructions[activeStepId] || '') : notesInstructions} 
+          instructions={activeStepId ? (stepNotesInstructions[activeStepId] ?? notesInstructions) : notesInstructions} 
           onChange={i => activeStepId ? setStepNotesInstructions(prev => ({...prev, [activeStepId]: i})) : setNotesInstructions(i)} 
         />;
       case 'Assignment':
         return <AssignmentWorkspace 
-          deliverables={activeStepId ? (stepDeliverables[activeStepId] || []) : deliverables} 
+          deliverables={activeStepId ? (stepDeliverables[activeStepId] ?? deliverables) : deliverables} 
           onUpdate={d => activeStepId ? setStepDeliverables(prev => ({...prev, [activeStepId]: d})) : setDeliverables(d)} 
         />;
       case 'Revision':
         return <RevisionWorkspace 
-          cards={activeStepId ? (stepFlashCards[activeStepId] || []) : flashCards} 
+          cards={activeStepId ? (stepFlashCards[activeStepId] ?? flashCards) : flashCards} 
           onUpdate={c => activeStepId ? setStepFlashCards(prev => ({...prev, [activeStepId]: c})) : setFlashCards(c)} 
           activeIdx={activeCardIdx} 
           setActiveIdx={setActiveCardIdx} 
         />;
       case 'Chapter Quiz':
         return <ChapterQuizWorkspace 
-          questions={activeStepId ? (stepQuizQuestions[activeStepId] || []) : quizQuestions} 
+          questions={activeStepId ? (stepQuizQuestions[activeStepId] ?? quizQuestions) : quizQuestions} 
           onUpdate={q => activeStepId ? setStepQuizQuestions(prev => ({...prev, [activeStepId]: q})) : setQuizQuestions(q)} 
         />;
       default:
         return <ReadingWorkspace 
-          blocks={activeStepId ? (stepBlocks[activeStepId] || []) : editorBlocks} 
+          blocks={activeStepId ? (stepBlocks[activeStepId] ?? editorBlocks) : editorBlocks} 
           onUpdateBlocks={b => activeStepId ? setStepBlocks(prev => ({ ...prev, [activeStepId]: b })) : setEditorBlocks(b)} 
         />;
     }

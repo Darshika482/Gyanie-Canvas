@@ -61,6 +61,7 @@ export function LeftRail({ isOpen, onToggle, isMobile = false }: { isOpen: boole
       <div className="flex-1 overflow-y-auto p-3 space-y-2 hide-scrollbar">
         {/* Mock Resource Cards */}
         {[
+          { id: 0, type: 'pdf', title: 'jemh1a1.pdf — Appendix A1 (Proofs)', source: 'NCERT Class X Mathematics' },
           { id: 1, type: 'pdf', title: 'Algebra Intro.pdf', source: 'NCERT Library' },
           { id: 2, type: 'video', title: 'Quadratic Visuals', source: 'YouTube' },
           { id: 3, type: 'note', title: 'Lecture Notes: Week 1', source: 'Your uploads' },

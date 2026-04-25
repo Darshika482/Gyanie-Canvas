@@ -49,7 +49,15 @@ const mockTasksAppendix: Task[] = [
       { id: 'st-app-1-6', name: 'Read Example 4 (pp. 220–221)', type: 'Reading', description: 'Practise restating a false statement.', minutes: 2, difficulty: 'Easy' }
     ]
   },
-  { id: 't-app-2', type: 'Video', name: '1.2 Watch — Types of mathematical statements explained', description: 'Watch an 8–12 minute video that covers what makes a statement mathematically valid.', minutes: 10, difficulty: 'Easy' },
+  {
+    id: 't-app-2',
+    type: 'Video',
+    name: '1.2 Watch — Types of mathematical statements explained',
+    description:
+      'Watch an 8–12 minute video on what makes a statement mathematically valid, including “All” and “Some” type statements. Teacher pastes the link in the video field. Suggested search: NCERT Class 10 Maths Appendix 1 mathematical statements true false ambiguous explained.',
+    minutes: 10,
+    difficulty: 'Easy',
+  },
   {
     id: 't-app-3', type: 'Practice', name: '1.3 Solve — Exercise A1.1: classifying and restating', description: 'Solve all 4 questions of Exercise A1.1.', minutes: 25, difficulty: 'Medium',
     subtasks: [
@@ -96,7 +104,15 @@ const mockTasksAppendix: Task[] = [
       { id: 'st-app-9-6', name: 'Theorem A1.1', type: 'Reading', description: 'Converse of Pythagoras Theorem.', minutes: 4, difficulty: 'Medium' }
     ]
   },
-  { id: 't-app-10', type: 'Video', name: '3.2 Watch — Writing a formal proof', description: 'Watch a direct proof using statement-analysis.', minutes: 12, difficulty: 'Medium' },
+  {
+    id: 't-app-10',
+    type: 'Video',
+    name: '3.2 Watch — Writing a formal mathematical proof: the direct method',
+    description:
+      'Watch a video that structures a direct proof using the Statement | Analysis format, ideally proving a number theory result line by line. Search: how to write a direct proof NCERT Class 10 Maths statement analysis method.',
+    minutes: 12,
+    difficulty: 'Medium',
+  },
   { id: 't-app-11', type: 'Practice', name: '3.3 Solve — Exercise A1.3: write 6 complete proofs', description: 'Solve all 6 questions from Exercise A1.3.', minutes: 40, difficulty: 'Hard' },
   { id: 't-app-12', type: 'Assignment', name: '3.4 Assignment — Two original proofs', description: 'Submit two original proofs in statement-analysis format.', minutes: 30, difficulty: 'Hard' },
   { id: 't-app-13', type: 'Chapter Quiz', name: '3.5 Quick check — Proofs and direct method', description: 'Answer three questions in your notebook.', minutes: 10, difficulty: 'Medium' },
@@ -107,7 +123,15 @@ const mockTasksAppendix: Task[] = [
   { id: 't-app-18', type: 'Practice', name: '5.2 Solve — Exercise A1.5: converses', description: 'Solve both questions from Exercise A1.5.', minutes: 20, difficulty: 'Hard' },
   { id: 't-app-19', type: 'Chapter Quiz', name: '5.3 Quick check — Converse', description: 'Answer three questions.', minutes: 7, difficulty: 'Medium' },
   { id: 't-app-20', type: 'Reading', name: '6.1 Read — Proof by contradiction', description: 'Read section A1.7 (pages 234–237).', minutes: 20, difficulty: 'Hard' },
-  { id: 't-app-21', type: 'Video', name: '6.2 Watch — Proof by contradiction', description: 'Watch contradiction examples.', minutes: 12, difficulty: 'Medium' },
+  {
+    id: 't-app-21',
+    type: 'Video',
+    name: '6.2 Watch — Proof by contradiction with classic examples',
+    description:
+      'Watch a video on the contradiction method, ideally covering irrationality of √2 and at least one number theory example. Search: proof by contradiction NCERT Class 10 irrational numbers √2 explained step by step.',
+    minutes: 12,
+    difficulty: 'Medium',
+  },
   { id: 't-app-22', type: 'Practice', name: '6.3 Solve — Exercise A1.6: 6 proofs by contradiction', description: 'Solve all 6 questions from Exercise A1.6.', minutes: 40, difficulty: 'Hard' },
   { id: 't-app-23', type: 'Chapter Quiz', name: '6.4 Quick check — Proof by contradiction', description: 'Answer three questions.', minutes: 10, difficulty: 'Medium' },
   { id: 't-app-24', type: 'Write', name: '7.1 Write — Your personal summary of Appendix A1', description: 'Write a summary of everything you learned in this appendix from memory.', minutes: 25, difficulty: 'Hard' },
@@ -117,11 +141,21 @@ const mockTasksAppendix: Task[] = [
 
 export const mockSystem: LearningSystem = {
   id: 'sys-123',
-  title: 'Astrophysics 101',
+  title: 'CBSE Mathematics Class 10',
   modules: [
     { id: 'm1', title: 'Week 1: Foundations', color: 'bg-indigo-500', tasks: mockTasks1 },
     { id: 'm2', title: 'Week 2: Stars', color: 'bg-violet-500', tasks: mockTasks2 },
     { id: 'm3', title: 'Week 3: Galaxies', color: 'bg-emerald-500', tasks: mockTasks3 },
-    { id: 'm-app-1', title: 'Appendix A1: Proofs in Mathematics', color: 'bg-rose-500', tasks: mockTasksAppendix }
+    {
+      id: 'm-app-1',
+      title: 'Appendix A1 — Proofs in Mathematics',
+      color: 'bg-rose-500',
+      tasks: mockTasksAppendix,
+      objectives: [
+        'Classify mathematical statements; use deductive reasoning.',
+        'Structure direct proofs; negate statements; understand converses.',
+        'Apply proof by contradiction (NCERT A1.1–A1.7, pp. 218–238).',
+      ],
+    },
   ]
 };

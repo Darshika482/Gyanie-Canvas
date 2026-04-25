@@ -64,6 +64,17 @@ export function RightRail({ isOpen, onToggle, system, selectedModuleId, onSelect
                   className="text-xl font-extrabold text-neutral-900 mb-6 w-full outline-none hover:bg-neutral-50 px-1 -mx-1 rounded transition-colors" 
                 />
 
+                {selectedModule.objectives && selectedModule.objectives.length > 0 && (
+                  <div className="mb-6 p-4 bg-neutral-50 border border-neutral-200 rounded-xl">
+                    <h4 className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">Outcomes</h4>
+                    <ul className="space-y-2 text-xs font-medium text-neutral-700 leading-snug list-disc pl-4">
+                      {selectedModule.objectives.map((o, i) => (
+                        <li key={i}>{o}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-2 gap-3 mb-8">
                   <div>
                     <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1 block">Time Limit</label>
