@@ -7,14 +7,11 @@ import { ChevronLeft, ChevronRight, Settings2, Trash2, ArrowUpCircle, ArrowDownC
 export function RightRail({ isOpen, onToggle, system, selectedModuleId, onSelectModule, onUpdateSystem }: { isOpen: boolean, onToggle: () => void, system: LearningSystem, selectedModuleId?: string | null, onSelectModule?: (id: string | null) => void, onUpdateSystem?: (s: LearningSystem) => void }) {
   if (!isOpen) {
     return (
-      <div className="h-full flex items-start justify-center pt-4 bg-transparent">
-        <button
-          onClick={onToggle}
-          className="p-1 text-neutral-400 hover:text-neutral-800 rounded bg-white border border-neutral-200 hover:bg-neutral-50 transition-colors shadow-sm"
-          title="Open inspector"
-        >
+      <div className="h-full flex flex-col items-center py-4 gap-6 bg-white border-l border-neutral-200">
+        <button onClick={onToggle} className="p-1.5 text-neutral-400 hover:text-neutral-800 rounded bg-neutral-100 hover:bg-neutral-200 transition-colors">
           <ChevronLeft className="w-4 h-4" />
         </button>
+        <BarChart2 className="w-5 h-5 text-neutral-400" />
       </div>
     );
   }
