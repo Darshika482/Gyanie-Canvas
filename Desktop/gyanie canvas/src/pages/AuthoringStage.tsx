@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef, useLayoutEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { cn } from '../lib/utils';
 import { HelpCircle, ChevronRight, X, ChevronLeft, Type, Image as ImageIcon, Link as LinkIcon, List, Video as VideoIcon, CheckCircle2, Circle, Plus, AlignLeft, PlaySquare, GraduationCap, PenTool, LayoutGrid, RotateCcw, Target, Settings, Trash2, GripVertical, ChevronUp, ChevronDown, Library, SlidersHorizontal, Eye, Maximize, Minimize, Bold, Italic, Underline, Highlighter, Upload } from 'lucide-react';
 import { mockSystem } from '../data/mock';
@@ -1091,9 +1091,14 @@ function RevisionPreviewViewer({ flashCards }: { flashCards: FlashCard[] }) {
 // ══════════════════════════════════════════════════════════
 
 export function AuthoringStage() {
+  const location = useLocation();
   const navigate = useNavigate();
-  const { taskId } = useParams();
+  const { id, taskId } = useParams();
   const draftKey = `authoring-draft-${taskId ?? 'default'}`;
+  const backTarget =
+    (location.state as { from?: string } | undefined)?.from ??
+    `/teacher/systems/new/systems/${id ?? 'sys-123'}/build?view=canvas`;
+  const backLabel = backTarget.includes('view=list') ? 'Back to List' : 'Back to Canvas';
 
   const allTasks = mockSystem.modules.flatMap(m => m.tasks);
   const foundTask = allTasks.find(t => t.id === taskId) || allTasks[0];
@@ -1618,9 +1623,9 @@ export function AuthoringStage() {
 
         {!previewMode && (
           <div className="absolute top-3 lg:top-5 left-3 lg:left-5 z-20 flex items-center gap-3">
-            <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm border border-neutral-200/60 shadow-sm px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-500 hover:text-neutral-900 hover:shadow-md transition-all group">
+            <button onClick={() => navigate(backTarget)} className="flex items-center gap-1.5 bg-white/90 backdrop-blur-sm border border-neutral-200/60 shadow-sm px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-500 hover:text-neutral-900 hover:shadow-md transition-all group">
               <ChevronLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-              Back to Canvas
+              {backLabel}
             </button>
           </div>
         )}

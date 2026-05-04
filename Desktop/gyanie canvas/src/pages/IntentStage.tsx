@@ -24,7 +24,7 @@ export function IntentStage() {
   const navigate = useNavigate();
 
   const handleGenerate = () => {
-    navigate('/systems/sys-123/build');
+    navigate('/teacher/systems/new/systems/sys-123/build');
   };
 
   return (

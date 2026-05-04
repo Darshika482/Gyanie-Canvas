@@ -1,12 +1,32 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, Command, Undo2, X, Activity } from 'lucide-react';
+import { Sparkles, Command, X, Activity, ZoomOut, ZoomIn } from 'lucide-react';
 import { cn } from '../lib/utils';
 
-export function AICopilot() {
+type AICopilotProps = {
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
+  zoomPercent?: number;
+  onResetZoom?: () => void;
+};
+
+export function AICopilot({ onZoomIn, onZoomOut, zoomPercent, onResetZoom }: AICopilotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [inputVal, setInputVal] = useState('');
+
+  const zoomIn = () => {
+    if (onZoomIn) onZoomIn();
+    else window.dispatchEvent(new CustomEvent('gyanie-canvas-zoom-in'));
+  };
+  const zoomOut = () => {
+    if (onZoomOut) onZoomOut();
+    else window.dispatchEvent(new CustomEvent('gyanie-canvas-zoom-out'));
+  };
+  const resetZoom = () => {
+    if (onResetZoom) onResetZoom();
+    else window.dispatchEvent(new CustomEvent('gyanie-canvas-zoom-reset'));
+  };
 
   // Keyboard shortcut listener (⌘K)
   useEffect(() => {
@@ -22,16 +42,49 @@ export function AICopilot() {
 
   return (
     <>
-      <button 
-        onClick={() => setIsOpen(true)}
-        className="flex items-center gap-3 bg-neutral-900 border border-neutral-700 hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full shadow-2xl transition-transform hover:-translate-y-1 active:translate-y-0 group"
-      >
-        <Sparkles className="w-4 h-4 text-amber-400 group-hover:animate-pulse" />
-        <span className="font-bold text-sm tracking-wide">Ask AI</span>
-        <div className="flex items-center gap-1 opacity-50 bg-neutral-800 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
-          <Command className="w-3 h-3" /> K
-        </div>
-      </button>
+      <div className="flex items-center gap-2 bg-neutral-900 border border-neutral-700 text-white px-2 py-2 rounded-full shadow-2xl">
+        <button
+          onClick={zoomOut}
+          className={cn(
+            "w-8 h-8 rounded-full grid place-items-center text-neutral-300 transition-colors",
+            "hover:bg-neutral-800 hover:text-white"
+          )}
+          title="Zoom out"
+        >
+          <ZoomOut className="w-4 h-4" />
+        </button>
+        <button
+          onClick={resetZoom}
+          className={cn(
+            "px-2 min-w-[52px] h-8 rounded-full text-[10px] uppercase font-extrabold tracking-widest transition-colors",
+            "text-neutral-300 hover:text-white hover:bg-neutral-800"
+          )}
+          title="Reset zoom"
+        >
+          {zoomPercent ? `${zoomPercent}%` : 'Zoom'}
+        </button>
+        <button
+          onClick={zoomIn}
+          className={cn(
+            "w-8 h-8 rounded-full grid place-items-center text-neutral-300 transition-colors",
+            "hover:bg-neutral-800 hover:text-white"
+          )}
+          title="Zoom in"
+        >
+          <ZoomIn className="w-4 h-4" />
+        </button>
+        <div className="h-5 w-px bg-neutral-700 mx-1" />
+        <button 
+          onClick={() => setIsOpen(true)}
+          className="flex items-center gap-3 bg-neutral-900 border border-neutral-700 hover:bg-neutral-800 text-white px-4 py-1.5 rounded-full transition-transform hover:-translate-y-0.5 active:translate-y-0 group"
+        >
+          <Sparkles className="w-4 h-4 text-amber-400 group-hover:animate-pulse" />
+          <span className="font-bold text-sm tracking-wide">Ask AI</span>
+          <div className="flex items-center gap-1 opacity-50 bg-neutral-800 px-1.5 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">
+            <Command className="w-3 h-3" /> K
+          </div>
+        </button>
+      </div>
 
       {createPortal(
         <AnimatePresence>
